@@ -1,3 +1,11 @@
+#<
+   © Lupalop Games - All Rights Reserved
+   Unauthorized copying of this file, via any medium is strictly prohibited
+   Proprietary and confidential
+   
+   Contributor(s):
+     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>, June 2021
+#>
 
 ╔═Introduction═════════════════════════════════════════════════════════════════╗
 ║ Welcome to Pacific Liberty, where you'll play the role of a young man who    ║
