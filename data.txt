@@ -1,33 +1,29 @@
-/*
- * This line should be ignored by the parser
- */
-
 maxpoints 200
 switches 3000
 
-// Global messages
-messages
-    // Fallback
+# Global messages
+string
+    # Fallback
     f_1|I don't understand that!
     f_2|I don't know that word.
     f_3|What?
     f_4|You're confusing!
-    // Talk
+    # Talk
     t_1|There's nobody in here.
     t_2|There's no one to talk to.
-    // Walk
+    # Walk
     w_1|Where?
     w_2|May I know which direction?
-    // Inventory
+    # Inventory
     i_1|This item is already in your inventory!
     i_2|This item is NOT in your inventory!
     i_3|You only have one item in your inventory:
     i_4|You have %s items in your inventory:%n
     i_5|%s: %s%n
     i_6|Your inventory is empty!
-    // Points
+    # Points
     p_1|You currently have %s of %s points.%n
-    // Save/Load Game
+    # Save/Load Game
     sl_1|Enter the name of your saved game:
     sl_2|Invalid name.
     sl_3|Name too long! Try a shorter name for your saved game.
@@ -38,6 +34,7 @@ messages
     go|Game over.
 end
 
+# Global groups
 group $_f
     printr,f_1,f_2,f_3,f_4
 end
@@ -50,8 +47,8 @@ group $_w
     printr,w_1,w_2
 end
 
-// Global actions
-actions
+# Global actions
+action
     fallback|goto,$_f
     talk|goto,$_t
     walk|goto,$_w
@@ -60,9 +57,9 @@ actions
     points|points,list
 end
 
-// Scenes
+# Scenes
 scene initial
-    messages
+    string
         sA0|A young man discovered an entryway to the past in their ancestor’s old house.%nIt’s as if he has entered into an entirely new world, back in the 1940s, with %npeople looming in the background and the streets bustling with life. There was %na crowd forming around the capitol building. %n%nSgt. Miller, a man of the American forces, is holding a clipboard bearing the %nnames of the Filipino troops who will fight alongside the Americans to stop the %nJapanese army. %n%n“Pack-up, lads!” said the Sgt.
         sA1|“Make a move on, kid! Unless you want to die at the hands of your foolishness.”
         sA2|“Majority of the soldiers here will be evacuated by boat to Bataan %nPeninsula to stop those sons of a gun from invading.”
@@ -79,7 +76,7 @@ scene initial
         print,sA1
     end
     
-    actions
+    action
         look,view,see|goto,$
         fallback|print,sA1
         pack,get,bag,pack up,take bag,pack bag,take up,get up,move bag, move up|goto,event_1
@@ -138,7 +135,7 @@ end
 
 scene sB
 
-    messages
+    string
         sB0|You’ve found 3 potential shelters: %nunder a tree, inside a broken house, and a trench. %n%nWhich will you choose to hide in?
         sB1|You have lived to see another daylight. %nYou saw the general in the trench and approached him. 
         sB2|“The American and Philippine forces have started to surrender to the Japanese.” %nOh, how bad news indeed.
@@ -151,7 +148,7 @@ scene sB
         print,sB0
     end
 
-    actions
+    action
         under a tree,under tree,tree,tree under,inside the house,inside house,inside,house,the house|goto,event_1
         in the trench,trench,walk to trench,walk trench,in trench,the trench,to trench,run trench,run to trench,walk to the trench,run to the trench,run the trench,walk the trench|goto,event_2
         talk,converse,talk general,talk to general,converse general,converse with general,chat,chat to general,chat with general,chat general,speak,speak to general,speak with general,speak general,speak up,talk to,chat to,chat with,talk with,converse with,interact,interact with general,interact with,interact to,interact to general|goto,event_3
@@ -176,18 +173,14 @@ scene sB
         if 5,!6
             print,sB2
             set,6,true
+        elsif 5,6,!7
+            print,sB3
+            set,7,true
+        elsif 5,6,7,!8
+            print,sB4
+            set,8,true
         else
-            if 5,6,!7
-                print,sB3
-                set,7,true
-            else
-                if 5,6,7,!8
-                    print,sB4
-                    set,8,true
-                else
-                    goto,$_f
-                end
-            end
+            goto,$_f
         end
     end
     
