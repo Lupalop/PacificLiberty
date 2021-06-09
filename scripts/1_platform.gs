@@ -177,6 +177,14 @@ group $_go
         goto,$_f
     end
 end
+# Common: Clear screen
+group $_cls
+    if !0
+        print,@CLS
+    else
+        goto,$_f
+    end
+end
 # Interaction: Talk
 group $_t
     if !0,!2
@@ -237,6 +245,7 @@ action
     bag,check bag,get bag|goto,$_i
     score,check score,view score|goto,$_p
     points,check points,view points|goto,$_p
+    clear,cls|goto,$_cls
     save|goto,$_ss
     load|goto,$_sl
     quit|quit
