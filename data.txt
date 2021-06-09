@@ -434,7 +434,7 @@ scene 01_premarch_exposition
             goto,$_f
         end
     end
-    # 3: Jump over a rock (prompt)
+    # 3: Jump over a rock [P]
     group event_3
         if 10,11,!12
             print,01_pme_4
@@ -539,7 +539,7 @@ scene 02_premarch_ticket
         elsif 14,15,!16
             print,02_pmt_3
             set,16,true
-        # CO: Sketchy system (prompt)
+        # CO: Sketchy system [P]
         elsif 14,15,16,!17
             print,02_pmt_4
             # We keep switch no. 17 as-is because this is the last message
