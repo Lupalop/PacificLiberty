@@ -10,12 +10,28 @@
 # Command groups [Custom]
 #------------------------------------------------------------------------------
 
-group _aff
+# Interaction: affirmative response
+group $$_aff
     goto,$_f
 end
+group $_aff
+    if !0,!2
+        goto,$$_aff
+    else
+        goto,$_f
+    end
+end
 
-group _neg
+# Interaction: negative response
+group $$_neg
     goto,$_f
+end
+group $_neg
+    if !0,!2
+        goto,$$_neg
+    else
+        goto,$_f
+    end
 end
 
 #------------------------------------------------------------------------------
@@ -24,6 +40,6 @@ end
 
 # Actions: Affirmative/Negative
 action
-    yes,y,sure,certainly,of course,no problem,yeah,yez|goto,_aff
-    no,n,no way,nope,nawp,nah,not in a million years,never|goto,_neg
+    yes,y,sure,certainly,of course,no problem,yeah,yez|goto,$_aff
+    no,n,no way,nope,nawp,nah,not in a million years,never|goto,$_neg
 end

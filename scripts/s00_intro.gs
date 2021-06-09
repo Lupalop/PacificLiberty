@@ -31,11 +31,11 @@ scene s00_prompt
         printc,tA1,tA2
     end
     # YES
-    group _aff
+    group $_aff
         scene,s00_introduction
     end
     # NO
-    group _neg
+    group $_neg
         set,0,false
         scene,s01_premarch_exposition
     end

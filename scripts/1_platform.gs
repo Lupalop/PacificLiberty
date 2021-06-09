@@ -148,6 +148,7 @@ end
 group $_f
     printr,f_1,f_2,f_3,f_4
 end
+
 # Common: Inventory access
 group $_i
     if !0,!1
@@ -156,6 +157,7 @@ group $_i
         goto,$_f
     end
 end
+
 # Common: Points access
 group $_p
     if !0,!1
@@ -164,6 +166,7 @@ group $_p
         goto,$_f
     end
 end
+
 # Common: Game over
 group $_go
     if !0
@@ -177,6 +180,7 @@ group $_go
         goto,$_f
     end
 end
+
 # Common: Clear screen
 group $_cls
     if !0
@@ -185,38 +189,7 @@ group $_cls
         goto,$_f
     end
 end
-# Interaction: Talk
-group $_t
-    if !0,!2
-        printr,t_1,t_2
-    else
-        goto,$_f
-    end
-end
-# Interaction: Walk/Run
-group $_w
-    if !0,!2
-        printr,w_1,w_2
-    else
-        goto,$_f
-    end
-end
-# Interaction: Look/View/See
-group $_l
-    if !0,!2
-        printr,l_1,l_2,l_3,l_4
-    else
-        goto,$_f
-    end
-end
-# Interaction: Taking objects
-group $_o
-    if !0,!2
-        printr,o_1,o_2,o_3,o_4
-    else
-        goto,$_f
-    end
-end
+
 # State: Save game
 group $_ss
     if !0,!3
@@ -225,10 +198,59 @@ group $_ss
         goto,$_f
     end
 end
+
 # State: Load game
 group $_sl
     if !0,!3
         load
+    else
+        goto,$_f
+    end
+end
+
+# Interaction: Talk
+group $$_t
+    printr,t_1,t_2
+end
+group $_t
+    if !0,!2
+        goto,$$_t
+    else
+        goto,$_f
+    end
+end
+
+# Interaction: Walk/Run
+group $$_w
+    printr,w_1,w_2
+end
+group $_w
+    if !0,!2
+        goto,$$_w
+    else
+        goto,$_f
+    end
+end
+
+# Interaction: Look/View/See
+group $$_l
+    printr,l_1,l_2,l_3,l_4
+end
+group $_l
+    if !0,!2
+        goto,$$_l
+    else
+        goto,$_f
+    end
+end
+
+# Interaction: Taking objects
+group $$_o
+    printr,o_1,o_2,o_3,o_4
+end
+group $_o
+    if !0,!2
+        goto,$$_o
     else
         goto,$_f
     end
