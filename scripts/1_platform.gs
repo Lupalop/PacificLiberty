@@ -91,9 +91,14 @@ string
     f_2|I don't know that word.
     f_3|What?
     f_4|You're confusing!
-    # Talk
-    t_1|There's nobody in here.
+    # Talk (empty)
+    t_1|There's no one nearby.
     t_2|There's no one to talk to.
+    t_3|I can't speak to ghosts.
+    # Talk (people)
+    t_4|Talk to whom?
+    t_5|To whom should I talk to?
+    t_6|Be specific. Who should I speak to?
     # Walk
     w_1|Where?
     w_2|May I know which direction?
@@ -142,6 +147,9 @@ end
     1: inventory and points access
     2: interactions
     3: game state load/save
+    4: (reserved)
+    5: use alternate talk sequence
+  6-9: (reserved)
 #>
 
 # Common: Unknown commands
@@ -210,7 +218,11 @@ end
 
 # Interaction: Talk
 group $$_t
-    printr,t_1,t_2
+    if !5
+        printr,t_1,t_2,t_3
+    else
+        printr,t_4,t_5,t_6
+    end
 end
 group $_t
     if !0,!2
