@@ -3,7 +3,7 @@
    Unauthorized copying of this file, via any medium is strictly prohibited
    Proprietary and confidential
    Contributor(s):
-     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>, June 2021
+     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
 #>
 
 # Scene: Initial
