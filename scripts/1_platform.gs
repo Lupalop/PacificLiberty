@@ -186,11 +186,11 @@ end
 # Common: Game over
 group $_go
     if !0
-        printc,%n,@BRED,go_0,@WHT,%n%n
+        printc,1n,@BRED,go_0,@WHT,2n
         points,list
-        printc,%n,@BRED,@UE
+        printc,1n,@BRED,@UE
         printr,go_1,go_2,go_3,go_4
-        printc,%n,@UD,@WHT
+        printc,1n,@UD,@WHT
         quit
     else
         goto,$_f
