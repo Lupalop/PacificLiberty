@@ -102,6 +102,7 @@ string
     # Walk
     w_1|Where?
     w_2|May I know which direction?
+    w_3|You can't go there.
     # Look/View
     l_1|There's nothing here.
     l_2|I don't know what you're looking for.
@@ -232,7 +233,7 @@ group $_t
     end
 end
 
-# Interaction: Walk/Run
+# Interaction: Walk
 group $$_w
     printr,w_1,w_2
 end
@@ -244,7 +245,68 @@ group $_w
     end
 end
 
-# Interaction: Look/View/See
+# Interaction: Walk Towards Direction
+# D: Generic
+group $$_wd
+    print,w_3
+end
+group $_wd
+    if !0,!2
+        goto,$$_wd
+    else
+        goto,$_f
+    end
+end
+
+# D: North
+group $$_wd_n
+    goto,$$_wd
+end
+group $_wd_n
+    if !0,!2
+        goto,$$_wd_n
+    else
+        goto,$_f
+    end
+end
+
+# D: South
+group $$_wd_s
+    goto,$$_wd
+end
+group $_wd_s
+    if !0,!2
+        goto,$$_wd_s
+    else
+        goto,$_f
+    end
+end
+
+# D: East
+group $$_wd_e
+    goto,$$_wd
+end
+group $_wd_e
+    if !0,!2
+        goto,$$_wd_e
+    else
+        goto,$_f
+    end
+end
+
+# D: West
+group $$_wd_w
+    goto,$$_wd
+end
+group $_wd_w
+    if !0,!2
+        goto,$$_wd_w
+    else
+        goto,$_f
+    end
+end
+
+# Interaction: Look
 group $$_l
     printr,l_1,l_2,l_3,l_4
 end
@@ -287,12 +349,31 @@ end
 
 # Actions: Interactions
 action
-    talk,converse,chat,speak|goto,$_t
-    talk to,talk with,converse to,converse with,chat to,chat with,speak to,speak with|goto,$_t
-    walk,run|goto,$_w
+    # Talk/Converse/Chat/Speak
+    talk,talk to,talk with|goto,$_t
+    converse,converse to,converse with|goto,$_t
+    chat,chat to,chat with|goto,$_t
+    speak,speak to,speak with|goto,$_t
+    
+    # Pick/Take/Get/Snatch/Grasp/Pull/Reach
     pick,take,get,snatch,grasp,pull,reach|goto,$_o
+    
+    # Look/View/See/Check
     look,look around,look surroundings,look at,look place|goto,$_l
-    see,see around,see surroundings,see place|goto,$_l
     view,view around,view surroundings,view place|goto,$_l
+    see,see around,see surroundings,see place|goto,$_l
     check,check around,check surroundings,check place|goto,$_l
+    
+    # Walk/Run/Go/Travel
+    walk,run,go,travel|goto,$_w
+    
+    # Walk/Run/Go/Travel Towards Direction
+    # D: North
+    walk north,walk n,run north,run n,go north,go n,travel north,travel n|goto,$_wd_n
+    # D: South
+    walk south,walk s,run south,run s,go south,go s,travel south,travel s|goto,$_wd_s
+    # D: East
+    walk east,walk e,run east,run e,go east,go e,travel east,travel e|goto,$_wd_e
+    # D: West
+    walk west,walk w,run west,run w,go west,go w,travel west,travel w|goto,$_wd_w
 end
