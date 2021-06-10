@@ -71,16 +71,14 @@ scene s00_introduction
         # tS
         tI18|║                                 *GOOD LUCK!*                                 ║%n
         tI19|║                          Type ANYTHING to CONTINUE.                          ║%n
-          tE|╚══════════════════════════════════════════════════════════════════════════════╝%n
+          tE|╚══════════════════════════════════════════════════════════════════════════════╝
     end
     # Show readme on entry
     group $
         # Set color to blue
         printc,@CLS,@BLUB
         # Print the entire readme
-        printc,tH,tI0,tI1,tI2,tI3,tS,tI4,tI5,tI6,tI7,tI8,tS,tI9,tI10,tI11,tI12,tI13,tS,tI14,tI15,tI16,tI17,tS,tI18,tI19,tE
-        # Reset color
-        print,@BLKB
+        printc,tH,tI0,tI1,tI2,tI3,tS,tI4,tI5,tI6,tI7,tI8,tS,tI9,tI10,tI11,tI12,tI13,tS,tI14,tI15,tI16,tI17,tS,tI18,tI19,tE,@_,2n
     end
     # Fallback: automatically start the game on any command
     group $_f
