@@ -84,6 +84,13 @@ string
     @BHWHT|\e[1;97m
 end
 
+string
+    # Newline shortcuts
+    1n|%n
+    2n|%n%n
+    3n|%n%n%n
+end
+
 # Common messages
 string
     # Fallback
