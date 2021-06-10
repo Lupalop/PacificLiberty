@@ -13,7 +13,7 @@
 # ASCII color codes
 string
     # Common
-    @_|\e
+    @_|\e[0m
     @CLS|\e[H\e[2J
     @UE|\e[4m
     @UD|\e[24m
