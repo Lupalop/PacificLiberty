@@ -419,7 +419,7 @@ scene s01_premarch_final
         # Look
         04_pmf_l0|Today is the 9th of April 1942, the time when the Americans surrendered to the%nforces of the Japanese. The troops captive consists of 66,000 Filipinos and%n12,000 Americans. The country is now subjugated by the Japanese and compel us to%nwalk 65 miles from Mariveles, Bataan to Camp O'Donnell.%n%nAre you ready to march to death?
         04_pmf_l1|Due to the huge number of captives, it was divided into groups consisting of%n100 to 1000 troops.
-        04_pmf_12| You noticed that there's a man trying to converse with you.
+        04_pmf_l2| You noticed that there's a man trying to converse with you.
         # Talk
         04_pmf_t0|"Don't you think the Japanese are being too harsh on us? I mean, we're also%nsoldiers like them," the man complained.
         04_pmf_t1|"No, best we keep our mouths shut," you answered.
@@ -492,7 +492,7 @@ scene s01_premarch_final
     end
     # 10a: Yes to the march
     group event_10a
-        print,04_pmf_l1
+        printc,04_pmf_l1,04_pmf_l2,1n
         set,22,true
     end
     # 10b: No to the march [D]
