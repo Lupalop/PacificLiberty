@@ -17,14 +17,25 @@ end
 scene s00_prompt
     # Messages
     string
-        tAcubes|╔═╗╔═╗╔═╗╔═╗╔═╗%n╚═╝╚═╝╚═╝╚═╝╚═╝
+         tAh0|  ██████╗  █████╗  ██████╗██╗███████╗██╗ ██████╗%n
+         tAh1|  ██╔══██╗██╔══██╗██╔════╝██║██╔════╝██║██╔════╝%n
+         tAh2|  ██████╔╝███████║██║     ██║█████╗  ██║██║     %n
+         tAh3|  ██╔═══╝ ██╔══██║██║     ██║██╔══╝  ██║██║     %n
+         tAh4|  ██║     ██║  ██║╚██████╗██║██║     ██║╚██████╗%n
+         tAh5|  ╚═╝     ╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝     ╚═╝ ╚═════╝%n
+         tAh6|      ██╗     ██╗██████╗ ███████╗██████╗ ████████╗██╗   ██╗%n
+         tAh7|      ██║     ██║██╔══██╗██╔════╝██╔══██╗╚══██╔══╝╚██╗ ██╔╝%n
+         tAh8|      ██║     ██║██████╔╝█████╗  ██████╔╝   ██║    ╚████╔╝ %n
+         tAh9|      ██║     ██║██╔══██╗██╔══╝  ██╔══██╗   ██║     ╚██╔╝  %n
+        tAh10|      ███████╗██║██████╔╝███████╗██║  ██║   ██║      ██║   %n
+        tAh11|      ╚══════╝╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝   ╚═╝      ╚═╝   %n
         tA1|Please answer the question with either YES or NO.%n
         tA2|Welcome to Pacific Liberty! Would you like some instructions?%n
     end
     # Show introduction question on entry
     group $
         set,0,true
-        printc,tAcubes,%n,tA2
+        printc,1n,@HBLU,tAh0,tAh1,tAh2,tAh3,tAh4,tAh5,@HRED,tAh6,tAh7,tAh8,tAh9,tAh10,tAh11,@_,tA2
     end
     # Re-ask the question on invalid keywords
     group $_f
