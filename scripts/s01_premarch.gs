@@ -10,6 +10,10 @@
      Georgette Tulod <gntulod@student.apc.edu.ph>
 #>
 
+#< @NOTES:
+   Allocated switches: 10-50
+#>
+
 # Before Death March: Part 01 (start until rock)
 scene s01_premarch_exposition
     # Strings
@@ -421,10 +425,10 @@ scene s01_premarch_final
         04_pmf_l1|Due to the huge number of captives, it was divided into groups consisting of%n100 to 1000 troops.
         04_pmf_l2| You noticed that there's a man trying to converse with you.
         # Talk
-        04_pmf_t0|"Don't you think the Japanese are being too harsh on us? I mean, we're also%nsoldiers like them," the man complained.
+        04_pmf_t0|"Don't you think the Japanese are being too harsh on us? I mean, we're also%nsoldiers like them," complained the man who introduced himself%nas Antonio, a fellow soldier.
         04_pmf_t1|"No, best we keep our mouths shut," you answered.
-        04_pmf_t2|The man was taken aback. You guys stopped talking.
-        04_pmf_t3|The man introduced himself as Antonio. You quickly became close friends with him.
+        04_pmf_t2|He was taken aback. You guys stopped talking.
+        04_pmf_t3|Both of you conversed for a while. You quickly became close friends with him.
         04_pmf_t4|Lieutenant General Homma Masaharu fired a gun so the troops will stop talking and start walking. "Rokudenashi, isoide!" the General shouted at the troops.
     end
     # LGO: Entry
@@ -503,7 +507,7 @@ scene s01_premarch_final
     # 11a: "Yes to friends"
     group event_11a
         set,24,true
-        # SW: 25 - friends with Antonio switch
+        # SW: 25 - Friends with Antonio
         set,25,true
         print,04_pmf_t3
     end
