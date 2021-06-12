@@ -65,6 +65,7 @@ scene s02_cabcaben_arrival
         05_cba_a1|Gunshots were heard, you saw a Japanese soldier approaching you. You got hit by the rifle's butt.
         05_cba_a2|I can't do that to a friend.
     end
+    # Items
     item
         rock|A rock. What else were you expecting?
     end
