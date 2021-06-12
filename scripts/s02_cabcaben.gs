@@ -317,7 +317,7 @@ scene s02_cabcaben_arrival
     action
         get up,stand up,stand,walk up|goto,event_13
         pick rock,take rock,get rock,snatch rock,grasp rock,pull rock,reach rock|goto,event_14
-        fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill japanese soldier,kill japanese,kill jap soldier,kill jap|goto event_19a
+        fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill japanese soldier,kill japanese,kill jap soldier,kill jap|goto,event_19a
         throw rock,throw rock at japanese soldier,throw rock at soldier|goto,event_19b
         kill antonio,strangle antonio,kick antonio|goto,event_19c
         throw rock at antonio,throw rock antonio|goto,event_19d
