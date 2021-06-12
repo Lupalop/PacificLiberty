@@ -321,9 +321,9 @@ scene s02_cabcaben_arrival
         throw rock,throw rock at japanese soldier,throw rock at soldier|goto,event_19b
         kill antonio,strangle antonio,kick antonio|goto,event_19c
         throw rock at antonio,throw rock antonio|goto,event_19d
-        talk antonio,talk to antonio,talk with antonio,|goto,$_t
-        converse antonio,converse to antonio,converse with antonio,|goto,$_t
-        chat antonio,chat to antonio,chat with antonio,|goto,$_t
-        speak antonio,speak to antonio,speak with antonio,|goto,$_t
+        talk antonio,talk to antonio,talk with antonio|goto,$_t
+        converse antonio,converse to antonio,converse with antonio|goto,$_t
+        chat antonio,chat to antonio,chat with antonio|goto,$_t
+        speak antonio,speak to antonio,speak with antonio|goto,$_t
     end
 end
