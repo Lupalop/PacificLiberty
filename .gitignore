@@ -1,0 +1,4 @@
+*.bat
+*.sh
+/scripts/*.gsd
+/scripts/3_debug.gs
