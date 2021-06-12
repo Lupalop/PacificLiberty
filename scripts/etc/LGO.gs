@@ -20,7 +20,10 @@
     group $$_wd_e
     # LGO: Direction (West)
     group $$_wd_w
-    #< LGO: #>
+    # LGO: Affirmative
+    group $$_aff
+    # LGO: Negative
+    group $$_neg
     
     talk,talk to,talk with,;
     converse,converse to,converse with,;
