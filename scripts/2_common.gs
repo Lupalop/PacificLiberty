@@ -13,6 +13,10 @@
 string
     # In-game tips
     tip_01|You can access the inventory by typing "inv" or "inventory".
+    # Inaccessible actions
+    ms_0|You can't do that.
+    ms_1|You need something to do that.
+    ms_2|I'm against that action, but I can't refuse your orders. Fortunately, I don't%nhave the specific item to do that.
 end
 
 #------------------------------------------------------------------------------
@@ -50,6 +54,9 @@ group ~$$_o
 end
 group ~$$_wd
     print,w_3
+end
+group ~$_ms
+    printr,ms_0,ms_1,ms_2
 end
 
 #------------------------------------------------------------------------------
@@ -91,6 +98,11 @@ group $_swear
     else
         goto,$_f
     end
+end
+
+# Common: missing or inaccessible items
+group $_ms
+    printr,ms_0,ms_1,ms_2
 end
 
 #------------------------------------------------------------------------------
