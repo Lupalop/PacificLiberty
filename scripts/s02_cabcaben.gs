@@ -11,7 +11,7 @@
 #>
 
 #< @NOTES:
-   Allocated switches: 51-100
+   Allocated switches: 50-99
    02: interactions
    25: Friends with Antonio
    51: Talk #1 w/ Soldier

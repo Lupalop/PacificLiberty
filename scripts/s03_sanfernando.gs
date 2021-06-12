@@ -11,7 +11,7 @@
 #>
 
 #< @NOTES:
-   Allocated switches: 101-150
+   Allocated switches: 100-149
 #>
 
 scene s03_sanfernando_arrival

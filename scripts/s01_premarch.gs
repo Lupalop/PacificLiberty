@@ -11,7 +11,7 @@
 #>
 
 #< @NOTES:
-   Allocated switches: 10-50
+   Allocated switches: 10-49
 #>
 
 # Before Death March: Part 01 (start until rock)
