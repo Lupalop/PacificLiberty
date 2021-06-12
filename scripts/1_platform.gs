@@ -1,25 +1,25 @@
-#< @FILE: 1_platform.gs
+/* @FILE: 1_platform.gs
    This Source Code Form is subject to the terms of the Mozilla Public
    License, v. 2.0. If a copy of the MPL was not distributed with this
    file, You can obtain one at http://mozilla.org/MPL/2.0/.
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-#>
+*/
 
-#------------------------------------------------------------------------------
-# Strings
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Strings
+//------------------------------------------------------------------------------
 
-# ASCII color codes
+// ASCII color codes
 string
-    # Common
+    // Common
     @_|\e[0m
     @CLS|\e[H\e[2J
     @UE|\e[4m
     @UD|\e[24m
     @BE|\e[1m
     @BD|\e[21m
-    # Regular text
+    // Regular text
     @BLK|\e[0;30m
     @RED|\e[0;31m
     @GRN|\e[0;32m
@@ -28,7 +28,7 @@ string
     @MAG|\e[0;35m
     @CYN|\e[0;36m
     @WHT|\e[0;37m
-    # Regular bold text
+    // Regular bold text
     @BBLK|\e[1;30m
     @BRED|\e[1;31m
     @BGRN|\e[1;32m
@@ -37,7 +37,7 @@ string
     @BMAG|\e[1;35m
     @BCYN|\e[1;36m
     @BWHT|\e[1;37m
-    # Regular underline text
+    // Regular underline text
     @UBLK|\e[4;30m
     @URED|\e[4;31m
     @UGRN|\e[4;32m
@@ -46,7 +46,7 @@ string
     @UMAG|\e[4;35m
     @UCYN|\e[4;36m
     @UWHT|\e[4;37m
-    # Regular background
+    // Regular background
     @BLKB|\e[40m
     @REDB|\e[41m
     @GRNB|\e[42m
@@ -55,7 +55,7 @@ string
     @MAGB|\e[45m
     @CYNB|\e[46m
     @WHTB|\e[47m
-    # High intensty background 
+    // High intensty background 
     @BLKHB|\e[0;100m
     @REDHB|\e[0;101m
     @GRNHB|\e[0;102m
@@ -64,7 +64,7 @@ string
     @MAGHB|\e[0;105m
     @CYNHB|\e[0;106m
     @WHTHB|\e[0;107m
-    # High intensty text
+    // High intensty text
     @HBLK|\e[0;90m
     @HRED|\e[0;91m
     @HGRN|\e[0;92m
@@ -73,7 +73,7 @@ string
     @HMAG|\e[0;95m
     @HCYN|\e[0;96m
     @HWHT|\e[0;97m
-    # Bold high intensity text
+    // Bold high intensity text
     @BHBLK|\e[1;90m
     @BHRED|\e[1;91m
     @BHGRN|\e[1;92m
@@ -85,51 +85,51 @@ string
 end
 
 string
-    # Newline shortcuts
+    // Newline shortcuts
     1n|%n
     2n|%n%n
     3n|%n%n%n
 end
 
-# Common messages
+// Common messages
 string
-    # Fallback
+    // Fallback
     f_1|I don't understand that!
     f_2|I don't know that word.
     f_3|What?
     f_4|You're confusing!
-    # Talk (empty)
+    // Talk (empty)
     t_1|There's no one nearby.
     t_2|There's no one to talk to.
     t_3|I can't speak to ghosts.
-    # Talk (people)
+    // Talk (people)
     t_4|Talk to whom?
     t_5|To whom should I talk to?
     t_6|Be specific. Who should I speak to?
-    # Walk
+    // Walk
     w_1|Where?
     w_2|May I know which direction?
     w_3|You can't go there.
-    # Look/View
+    // Look/View
     l_1|There's nothing here.
     l_2|I don't know what you're looking for.
     l_3|What are you looking for?
     l_4|See what exactly?
-    # Taking objects
+    // Taking objects
     o_1|Take what?
     o_2|I don't see that object here.
     o_3|I'm not a magician.
     o_4|I can't pick something that isn't here.
-    # Inventory
+    // Inventory
     i_1|This item is already in your inventory!
     i_2|This item is NOT in your inventory!
     i_3|You only have one item in your inventory:
     i_4|You have %s items in your inventory:%n
     i_5|%s: %s%n
     i_6|Your inventory is empty!
-    # Points
+    // Points
     p_1|You currently have %s of %s points.%n
-    # Save/Load Game
+    // Save/Load Game
     sl_1|Enter the name of your saved game:
     sl_2|Invalid name.
     sl_3|Name too long! Try a shorter name for your saved game.
@@ -137,7 +137,7 @@ string
     sl_5|Your game has been loaded!
     sl_6|Your game cannot be saved.
     sl_7|Your game has been saved!
-    # Game over
+    // Game over
     go_0|Game over.
     go_1|Better luck next time!
     go_2|Perhaps you'll fare better if you restart.
@@ -145,11 +145,11 @@ string
     go_4|Look at the time! Sleep now, and try again in the morning.
 end
 
-#------------------------------------------------------------------------------
-# Command groups
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Command groups
+//------------------------------------------------------------------------------
 
-#<
+/*
   Reserved switches:
     0: disable all reserved global command groups
     1: inventory and points access
@@ -158,14 +158,14 @@ end
     4: (reserved)
     5: use alternate talk sequence
   6-9: (reserved)
-#>
+*/
 
-# Common: Unknown commands
+// Common: Unknown commands
 group $_f
     printr,f_1,f_2,f_3,f_4
 end
 
-# Common: Inventory access
+// Common: Inventory access
 group $_i
     if !0,!1
         inv,list
@@ -174,7 +174,7 @@ group $_i
     end
 end
 
-# Common: Points access
+// Common: Points access
 group $_p
     if !0,!1
         points,list
@@ -183,7 +183,7 @@ group $_p
     end
 end
 
-# Common: Game over
+// Common: Game over
 group $_go
     if !0
         printc,1n,@BRED,go_0,@_,2n
@@ -197,7 +197,7 @@ group $_go
     end
 end
 
-# Common: Clear screen
+// Common: Clear screen
 group $_cls
     if !0
         print,@CLS
@@ -206,7 +206,7 @@ group $_cls
     end
 end
 
-# State: Save game
+// State: Save game
 group $_ss
     if !0,!3
         save
@@ -215,7 +215,7 @@ group $_ss
     end
 end
 
-# State: Load game
+// State: Load game
 group $_sl
     if !0,!3
         load
@@ -224,7 +224,7 @@ group $_sl
     end
 end
 
-# Interaction: Talk
+// Interaction: Talk
 group $$_t
     if !5
         printr,t_1,t_2,t_3
@@ -240,7 +240,7 @@ group $_t
     end
 end
 
-# Interaction: Walk
+// Interaction: Walk
 group $$_w
     printr,w_1,w_2
 end
@@ -252,8 +252,8 @@ group $_w
     end
 end
 
-# Interaction: Walk Towards Direction
-# D: Generic
+// Interaction: Walk Towards Direction
+// D: Generic
 group $$_wd
     print,w_3
 end
@@ -265,7 +265,7 @@ group $_wd
     end
 end
 
-# D: North
+// D: North
 group $$_wd_n
     goto,$$_wd
 end
@@ -277,7 +277,7 @@ group $_wd_n
     end
 end
 
-# D: South
+// D: South
 group $$_wd_s
     goto,$$_wd
 end
@@ -289,7 +289,7 @@ group $_wd_s
     end
 end
 
-# D: East
+// D: East
 group $$_wd_e
     goto,$$_wd
 end
@@ -301,7 +301,7 @@ group $_wd_e
     end
 end
 
-# D: West
+// D: West
 group $$_wd_w
     goto,$$_wd
 end
@@ -313,7 +313,7 @@ group $_wd_w
     end
 end
 
-# Interaction: Look
+// Interaction: Look
 group $$_l
     printr,l_1,l_2,l_3,l_4
 end
@@ -325,7 +325,7 @@ group $_l
     end
 end
 
-# Interaction: Taking objects
+// Interaction: Taking objects
 group $$_o
     printr,o_1,o_2,o_3,o_4
 end
@@ -337,11 +337,11 @@ group $_o
     end
 end
 
-#------------------------------------------------------------------------------
-# Actions
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Actions
+//------------------------------------------------------------------------------
 
-# Actions: Common/State
+// Actions: Common/State
 action
     fallback|goto,$_f
     inventory,check inventory,get inventory,inv,check inv,get inv|goto,$_i
@@ -354,33 +354,33 @@ action
     quit|quit
 end
 
-# Actions: Interactions
+// Actions: Interactions
 action
-    # Talk/Converse/Chat/Speak
+    // Talk/Converse/Chat/Speak
     talk,talk to,talk with|goto,$_t
     converse,converse to,converse with|goto,$_t
     chat,chat to,chat with|goto,$_t
     speak,speak to,speak with|goto,$_t
     
-    # Pick/Take/Get/Snatch/Grasp/Pull/Reach
+    // Pick/Take/Get/Snatch/Grasp/Pull/Reach
     pick,take,get,snatch,grasp,pull,reach|goto,$_o
     
-    # Look/View/See/Check
+    // Look/View/See/Check
     look,look around,look surroundings,look at,look place|goto,$_l
     view,view around,view surroundings,view place|goto,$_l
     see,see around,see surroundings,see place|goto,$_l
     check,check around,check surroundings,check place|goto,$_l
     
-    # Walk/Run/Go/Travel
+    // Walk/Run/Go/Travel
     walk,run,go,travel|goto,$_w
     
-    # Walk/Run/Go/Travel Towards Direction
-    # D: North
+    // Walk/Run/Go/Travel Towards Direction
+    // D: North
     walk north,walk n,run north,run n,go north,go n,travel north,travel n|goto,$_wd_n
-    # D: South
+    // D: South
     walk south,walk s,run south,run s,go south,go s,travel south,travel s|goto,$_wd_s
-    # D: East
+    // D: East
     walk east,walk e,run east,run e,go east,go e,travel east,travel e|goto,$_wd_e
-    # D: West
+    // D: West
     walk west,walk w,run west,run w,go west,go w,travel west,travel w|goto,$_wd_w
 end

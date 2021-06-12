@@ -1,28 +1,28 @@
-    # LGO: Entry
+    // LGO: Entry
     group $
-    # LGO: Fallback
+    // LGO: Fallback
     group $_f
-    # LGO: Talk
+    // LGO: Talk
     group $$_t
-    # LGO: Look
+    // LGO: Look
     group $$_l
-    # LGO: Walk
+    // LGO: Walk
     group $$_w
-    # LGO: Objects
+    // LGO: Objects
     group $$_o
-    # LGO: Direction (Generic)
+    // LGO: Direction (Generic)
     group $$_wd
-    # LGO: Direction (North)
+    // LGO: Direction (North)
     group $$_wd_n
-    # LGO: Direction (South)
+    // LGO: Direction (South)
     group $$_wd_s
-    # LGO: Direction (East)
+    // LGO: Direction (East)
     group $$_wd_e
-    # LGO: Direction (West)
+    // LGO: Direction (West)
     group $$_wd_w
-    # LGO: Affirmative
+    // LGO: Affirmative
     group $$_aff
-    # LGO: Negative
+    // LGO: Negative
     group $$_neg
     
     talk,talk to,talk with,;

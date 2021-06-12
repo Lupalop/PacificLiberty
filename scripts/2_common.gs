@@ -1,38 +1,38 @@
-#< @FILE: 2_common.gs
+/* @FILE: 2_common.gs
    © Lupalop Games - All Rights Reserved
    Unauthorized copying of this file, via any medium is strictly prohibited
    Proprietary and confidential
    Contributor(s):
-     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-#>
+    Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
+*/
 
-#------------------------------------------------------------------------------
-# Strings
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Strings
+//------------------------------------------------------------------------------
 
 string
-    # In-game tips
+    // In-game tips
     tip_01|You can access the inventory by typing "inv" or "inventory".
-    # Inaccessible actions
+    // Inaccessible actions
     ms_0|You can't do that.
     ms_1|You need something to do that.
     ms_2|I'm against that action, but I can't refuse your orders. Fortunately, I don't%nhave the specific item to do that.
 end
 
-#------------------------------------------------------------------------------
-# Command groups [Tips]
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Command groups [Tips]
+//------------------------------------------------------------------------------
 
 group tip_01
     printc,@HGRN,%n,tip_01,%n,@_
 end
 
-#------------------------------------------------------------------------------
-# Command groups [Temporary]
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Command groups [Temporary]
+//------------------------------------------------------------------------------
 
-# Replacements for missing gotob (go to base group command)
-# XXX: Keep in sync with 1_platform.gs
+// Replacements for missing gotob (go to base group command)
+// XXX: Keep in sync with 1_platform.gs
 group ~$_f
     printr,f_1,f_2,f_3,f_4
 end
@@ -59,11 +59,11 @@ group ~$_ms
     printr,ms_0,ms_1,ms_2
 end
 
-#------------------------------------------------------------------------------
-# Command groups [Custom]
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Command groups [Custom]
+//------------------------------------------------------------------------------
 
-# Interaction: affirmative response
+// Interaction: affirmative response
 group $$_aff
     goto,$_f
 end
@@ -75,7 +75,7 @@ group $_aff
     end
 end
 
-# Interaction: negative response
+// Interaction: negative response
 group $$_neg
     goto,$_f
 end
@@ -87,7 +87,7 @@ group $_neg
     end
 end
 
-# Interaction: swearing
+// Interaction: swearing
 group $$_swear
     goto,$_go
 end
@@ -100,22 +100,22 @@ group $_swear
     end
 end
 
-# Common: missing or inaccessible items
+// Common: missing or inaccessible items
 group $_ms
     printr,ms_0,ms_1,ms_2
 end
 
-#------------------------------------------------------------------------------
-# Actions [Custom]
-#------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Actions [Custom]
+//------------------------------------------------------------------------------
 
-# Actions: Affirmative/Negative
+// Actions: Affirmative/Negative
 action
     yes,y,sure,certainly,of course,no problem,yeah,yez,talk yes|goto,$_aff
     no,n,no way,nope,nawp,nah,not in a million years,never,talk no|goto,$_neg
 end
 
-# Actions: Swearing
+// Actions: Swearing
 action
     fuck,fuk,fack,fudge,f this,fuckdis,fuck this,fuck this shit,bitch,bitches,suck it,holy shit,holyshit,shit,bullshit,bullcrap,crap,cagar,bull shit,bull crap,s***,f***|goto,$_swear
     puta,putangina,putragis,tangina,mierda,tanginamo,tangina mo,putanginamo,putangina mo,p***,taena,putaena,putangena,mamamo,mama mo|goto,$_swear
