@@ -17,6 +17,8 @@ string
     ms_0|You can't do that.
     ms_1|You need something to do that.
     ms_2|I'm against that action, but I can't refuse your orders. Fortunately, I don't%nhave the specific item to do that.
+    // Questions
+    qs_0|Please answer the question.
 end
 
 //------------------------------------------------------------------------------
@@ -56,7 +58,10 @@ group ~$$_wd
     print,w_3
 end
 group ~$_ms
-    printr,ms_0,ms_1,ms_2
+    printr,ms_1,ms_2
+end
+group ~$_msp
+    print,ms_0
 end
 
 //------------------------------------------------------------------------------
@@ -102,7 +107,10 @@ end
 
 // Common: missing or inaccessible items
 group $_ms
-    printr,ms_0,ms_1,ms_2
+    printr,ms_1,ms_2
+end
+group $_msp
+    print,ms_0
 end
 
 //------------------------------------------------------------------------------
