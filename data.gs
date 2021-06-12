@@ -630,10 +630,7 @@ end
    Proprietary and confidential
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-     Rachel Lauren Manlapig <rcmanlapig@student.apc.edu.ph>
      Cecille Marie Milan <clmilan@student.apc.edu.ph>
-     Timothy Jay Sayson <tvsayson@student.apc.edu.ph>
-     Georgette Tulod <gntulod@student.apc.edu.ph>
 #>
 
 #< @NOTES:
@@ -1161,10 +1158,8 @@ end
    Proprietary and confidential
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-     Rachel Lauren Manlapig <rcmanlapig@student.apc.edu.ph>
      Cecille Marie Milan <clmilan@student.apc.edu.ph>
      Timothy Jay Sayson <tvsayson@student.apc.edu.ph>
-     Georgette Tulod <gntulod@student.apc.edu.ph>
 #>
 
 #< @NOTES:
@@ -1224,6 +1219,7 @@ scene s02_cabcaben_arrival
         05_cba_a1|Gunshots were heard, you saw a Japanese soldier approaching you. You got hit by the rifle's butt.
         05_cba_a2|I can't do that to a friend.
     end
+    # Items
     item
         rock|A rock. What else were you expecting?
     end
@@ -1475,7 +1471,7 @@ scene s02_cabcaben_arrival
     action
         get up,stand up,stand,walk up|goto,event_13
         pick rock,take rock,get rock,snatch rock,grasp rock,pull rock,reach rock|goto,event_14
-        fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill japanese soldier,kill japanese,kill jap soldier,kill jap|goto event_19a
+        fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill japanese soldier,kill japanese,kill jap soldier,kill jap|goto,event_19a
         throw rock,throw rock at japanese soldier,throw rock at soldier|goto,event_19b
         kill antonio,strangle antonio,kick antonio|goto,event_19c
         throw rock at antonio,throw rock antonio|goto,event_19d
@@ -1492,17 +1488,24 @@ end
    Proprietary and confidential
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-     Rachel Lauren Manlapig <rcmanlapig@student.apc.edu.ph>
      Cecille Marie Milan <clmilan@student.apc.edu.ph>
      Timothy Jay Sayson <tvsayson@student.apc.edu.ph>
-     Georgette Tulod <gntulod@student.apc.edu.ph>
 #>
 
 #< @NOTES:
    Allocated switches: 100-149
 #>
 
+# San Fernando: Part 01 (Arrival)
 scene s03_sanfernando_arrival
+    # Strings
+    string
+        06_sfa_l0|Upon arrival to San Fernando, you've noticed that there’s many decomposing%ncorpses of soldiers who died due to several reasons: shot, decapitated, stabbed, among others.
+    end
+    # LGO: Entry
+    group $
+        print,05_cba_l0
+    end
 end
 
 #< @FILE: s04_campdonnell.gs
@@ -1512,8 +1515,6 @@ end
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
      Rachel Lauren Manlapig <rcmanlapig@student.apc.edu.ph>
-     Cecille Marie Milan <clmilan@student.apc.edu.ph>
-     Timothy Jay Sayson <tvsayson@student.apc.edu.ph>
      Georgette Tulod <gntulod@student.apc.edu.ph>
 #>
 
