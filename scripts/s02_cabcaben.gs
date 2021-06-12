@@ -4,10 +4,8 @@
    Proprietary and confidential
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-     Rachel Lauren Manlapig <rcmanlapig@student.apc.edu.ph>
      Cecille Marie Milan <clmilan@student.apc.edu.ph>
      Timothy Jay Sayson <tvsayson@student.apc.edu.ph>
-     Georgette Tulod <gntulod@student.apc.edu.ph>
 #>
 
 #< @NOTES:
