@@ -29,3 +29,8 @@
     converse,converse to,converse with,;
     chat,chat to,chat with,;
     speak,speak to,speak with,;
+
+    walk,walk to,;
+    run,run to,;
+    go,go to,;
+    travel,travel to,;
