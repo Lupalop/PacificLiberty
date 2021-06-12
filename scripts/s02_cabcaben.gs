@@ -12,8 +12,8 @@
    Allocated switches: 50-99
    02: interactions
    25: Friends with Antonio
-   51: Talk #1 w/ Soldier
-   52: Talk #2 w/ Soldier
+   51: Talk #1 with Soldier
+   52: Talk #2 with Soldier
    53: Pushed by soldier
    54: Stood up 
    55: Rock: can't be picked anymore
@@ -85,11 +85,11 @@ scene s02_cabcaben_arrival
     end
     // LGO: Talk
     group $$_t
-        // SW: 51 - Talk //1 w/ Soldier
+        // SW: 51 - Talk #1 with Soldier
         if !51
             print,05_cba_t0
             set,51,true
-        // SW: 52 - Talk //2 w/ Soldier
+        // SW: 52 - Talk #2 with Soldier
         elsif !52
             print,05_cba_t1
             set,52,true
@@ -226,15 +226,19 @@ scene s02_cabcaben_arrival
     end
     // 16: Death by rock [D]
     group event_16
+        // SW: 59 - Rock death sequence #1 [Friends]
         if 25,!59
             print,05_cba_d1
             set,59,true
+        // SW: 60 - Rock death sequence #2
         elsif !60
             print,05_cba_d2
             set,60,true
+        // SW: 61 - Rock death sequence #3
         elsif !61
             print,05_cba_d3
             set,61,true
+        // SW: 62 - Rock death sequence #4
         elsif !62
             print,05_cba_d4
             set,62,true
