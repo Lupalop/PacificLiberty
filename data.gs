@@ -576,6 +576,8 @@ end
 scene s00_prompt
     // Messages
     string
+         tAd0|Pacific Liberty v1.0.0b1 (Beta 1)%n
+         tAd1|DISCLAIMER: This is a pre-release version of the game. Bugs are unavoidable.%n%n
          tAh0|  ██████╗  █████╗  ██████╗██╗███████╗██╗ ██████╗%n
          tAh1|  ██╔══██╗██╔══██╗██╔════╝██║██╔════╝██║██╔════╝%n
          tAh2|  ██████╔╝███████║██║     ██║█████╗  ██║██║     %n
@@ -594,6 +596,7 @@ scene s00_prompt
     // Show introduction question on entry
     group $
         set,0,true
+        printc,tAd0,tAd1
         printc,1n,@HBLU,tAh0,tAh1,tAh2,tAh3,tAh4,tAh5,@HRED,tAh6,tAh7,tAh8,tAh9,tAh10,tAh11,@_,tA2
     end
     // Re-ask the question on invalid keywords
@@ -2849,8 +2852,9 @@ scene s05_end
     // Strings
     string
         // Look
-        99_end_l0|1945, after the long march, POWs are now free from the hands of the Japanese.%nYou were filled with glad, hope, and liberty. You find yourself weeping after%nthe miserable and tormenting walk. The cruelty finally came to an end.
-        99_end_a0|You may type `quit` to quit the game.
+        99_end_l0|THE END.%n%n1945, after the long march, POWs are now free from the hands of the Japanese.%nYou were filled with glad, hope, and liberty. You find yourself weeping after%nthe miserable and tormenting walk. The cruelty finally came to an end.
+        99_end_a0|Created by:%nFrancis Fajardo, Rachel Manlapig, Cecille Milan, TJ Sayson, and Georgette Tulod
+        99_end_a1|You may type `quit` to quit the game.
     end
     // LGO: Entry
     group $
@@ -2858,7 +2862,7 @@ scene s05_end
         printc,99_end_l0,2n
         inv,list
         points,list
-        printc,1n,99_end_a0,1n
+        printc,1n,99_end_a0,2n,99_end_a1,1n
     end
 end
 
