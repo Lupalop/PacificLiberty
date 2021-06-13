@@ -115,11 +115,14 @@ string
     l_2|I don't know what you're looking for.
     l_3|What are you looking for?
     l_4|See what exactly?
-    // Taking objects
+    // Taking objects (generic)
     o_1|Take what?
-    o_2|I don't see that object here.
+    o_2|What do you want me to get?
     o_3|I'm not a magician.
-    o_4|I can't pick something that isn't here.
+    // Taking objects (unavailable)
+    o_4|I don't see that object here.
+    o_5|I can't pick something that isn't here.
+    o_6|I can't take something out of thin air.
     // Inventory
     i_1|This item is already in your inventory!
     i_2|This item is NOT in your inventory!
@@ -325,9 +328,9 @@ group $_l
     end
 end
 
-// Interaction: Taking objects
+// Interaction: Taking objects (generic)
 group $$_o
-    printr,o_1,o_2,o_3,o_4
+    printr,o_1,o_2,o_3
 end
 group $_o
     if !0,!2
@@ -335,6 +338,11 @@ group $_o
     else
         goto,$_f
     end
+end
+
+// Interaction: Taking objects (unavailable)
+group $_o_u
+    printr,o_1,o_2,o_3
 end
 
 //------------------------------------------------------------------------------
