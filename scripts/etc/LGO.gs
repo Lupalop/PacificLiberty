@@ -34,3 +34,7 @@
     run,run to,;
     go,go to,;
     travel,travel to,;
+    
+    pick,take,get,snatch,grasp,pull,reach,;
+    look,view,see,check,;
+    
