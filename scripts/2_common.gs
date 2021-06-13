@@ -19,6 +19,8 @@ string
     ms_2|I'm against that action, but I can't refuse your orders. Fortunately, I don't%nhave the specific item to do that.
     // Questions
     qs_0|Please answer the question.
+    // Talk extensions
+    t_10|I don't think I can talk to anyone at this point.
 end
 
 //------------------------------------------------------------------------------
