@@ -1,4 +1,4 @@
 *.bat
 *.sh
-/scripts/*.gsd
+*.gsd
 /scripts/3_debug.gs
