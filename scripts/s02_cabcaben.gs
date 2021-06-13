@@ -90,14 +90,17 @@ scene s02_cabcaben_arrival
         if !51
             print,05_cba_t0
             set,51,true
+            points,add,2
         // SW: 52 - Talk #2 with Soldier
         elsif !52
             print,05_cba_t1
             set,52,true
+            points,add,2
         // SW: 53 - Pushed by soldier
         elsif !53
             print,05_cba_t2
             set,53,true
+            points,add,2
         // SW: 57 - Enable handling of question about plan
         elsif 54,56,!57
             if_inv rock
@@ -106,6 +109,7 @@ scene s02_cabcaben_arrival
                 print,05_cba_t4
             end
             set,57,true
+            points,add,2
         // SWE: 57 - Question about plan (prompt)
         elsif 57,!58
             print,05_cba_t4
@@ -130,6 +134,7 @@ scene s02_cabcaben_arrival
             // SW: 56 - Allow talk to Antonio
             if !56
                 set,56,true
+                points,add,5
             end
         // L3: Shown after Japanese approach
         elsif 63,!65
@@ -160,6 +165,7 @@ scene s02_cabcaben_arrival
         if 53,!54
             print,05_cba_l2
             set,54,true
+            points,add,2
         else
             goto,$_f
         end
@@ -171,6 +177,7 @@ scene s02_cabcaben_arrival
             if_inv rock
                 inv,add,rock
                 print,05_cba_o0
+                points,add,5
             else
                 // Rock was already picked
                 print,05_cba_o1
@@ -258,6 +265,7 @@ scene s02_cabcaben_arrival
             set,63,true
             // Disable all interactions (Japanese approach)
             set,2,true
+            points,add,5
         end
     end
     // 18: Japanese soldier approach
@@ -267,6 +275,7 @@ scene s02_cabcaben_arrival
         set,64,true
         // Restore all interactions
         set,2,false
+        points,add,5
     end
     // 19a: Fighting back to the Japanese [D]
     group event_19a
@@ -316,6 +325,7 @@ scene s02_cabcaben_arrival
     group event_20
         // SW: 65 - Final plan talk
         set,65,true
+        points,add,5
         scene,s03_sanfernando_arrival
     end
     // Actions

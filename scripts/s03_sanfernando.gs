@@ -59,6 +59,7 @@ scene s03_sanfernando_arrival
             // SW: 101 - Talk then gunfire
             elsif !101
                 print,06_sfa_t1
+                points,add,2
                 scene,s03_sanfernando_gunfireprompt
             else
                 goto,$_msp
@@ -72,6 +73,7 @@ scene s03_sanfernando_arrival
         if !100
             print,06_sfa_w0
             set,100,true
+            points,add,3
         else
             print,06_sfa_w1
         end
@@ -134,6 +136,7 @@ scene s03_sanfernando_gunfireprompt
         if !102
             printc,07_sfg_a0,2n,07_sfg_l1,1n
             set,102,true
+            points,add,5
         // SW: 103 - Stayed despite Antonio's death
         elsif !103
             goto,event_25
@@ -161,8 +164,9 @@ scene s03_sanfernando_gunfireprompt
             goto,$_msp
         end
     end
-    // 25: Stayted despite Antonio's death
+    // 25: Stayed despite Antonio's death
     group event_25
+        points,add,5
         scene,s03_sanfernando_malaria
     end
     // Actions
@@ -215,7 +219,10 @@ scene s03_sanfernando_malaria
         if !104
             print,08_sfm_l1
             // SW: 105 - Allow talk with Japanese
-            set,105,true
+            if !105
+                set,105,true
+                points,add,5
+            end
         // SWE: 105 - Malaria question prompt
         elsif 105,!106
             print,08_sfm_t0
@@ -234,6 +241,7 @@ scene s03_sanfernando_malaria
             if !104
                 // SW: 104 - Other messages would mean death
                 set,104,true
+                points,add,5
             end
         // SWE: 106 - Bathroom question prompt
         elsif 106,!107
@@ -276,6 +284,7 @@ scene s03_sanfernando_malaria
         print,08_sfm_t1
         // SW: 106 - Show bathroom question prompt
         set,106,true
+        points,add,5
     end
     // 27a: YES to bathroom
     group event_27a
@@ -286,6 +295,7 @@ scene s03_sanfernando_malaria
     group event_27b
         // SW: 107 - Passed all death questions
         set,107,true
+        points,add,5
         scene,s03_sanfernando_final
     end
     // Actions
@@ -334,6 +344,7 @@ scene s03_sanfernando_final
     // LGO: Direction (North)
     group $$_wd_n
         print,09_sff_a0
+        points,add,5
         scene,s04_donnell_arrival
     end
 end

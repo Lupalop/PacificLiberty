@@ -161,7 +161,6 @@ scene s04_campdonnell_arrival
             goto,event_31
         // E: Defied room orders
         elsif 151,!152
-            print,test
             goto,event_32b
         else
             goto,$_f
@@ -208,6 +207,7 @@ scene s04_campdonnell_arrival
             printc,10_cda_a0,2n,10_cda_l2,1n
             // SW: 151 - Enter the room prompt
             set,151,true
+            points,add,5
         else
             goto,$_msp
         end
@@ -216,6 +216,7 @@ scene s04_campdonnell_arrival
     group event_32a
         // SW: 152 - Moved to room assignment
         set,152,true
+        points,add,5
         scene,s04_campdonnell_room
     end
     // 32b: Defied room and task orders [D]
@@ -283,7 +284,7 @@ scene s04_campdonnell_room
         // Disable all interactions
         set,2,true
     end
-    // 33b: Death by sleeping
+    // 33b: Death by sleeping [D]
     group event_33b
         print,11_cdr_d0
         goto,$_go
@@ -292,6 +293,7 @@ scene s04_campdonnell_room
     group event_34
         // SW: 153 - Moved to hunting assignment
         set,153,true
+        points,add,5
         scene,s04_campdonnell_hunting
     end
     // Actions
@@ -363,6 +365,7 @@ scene s04_campdonnell_hunting
             inv,add,chicken
             // SW: 154 - Done hunting chickens
             set,154,true
+            points,add,5
         else
             print,12_cdh_l2
         end
@@ -391,6 +394,7 @@ scene s04_campdonnell_hunting
         if 154
             // SW: 155 - Refused to eat the chicken
             set,155,true
+            points,add,5
             scene,s04_campdonnell_camp_returnprompt
         else
             if_inv !chicken
@@ -449,6 +453,7 @@ scene s04_campdonnell_camp_returnprompt
     group event_37
         // SW: 156 - Returned to the camp
         set,156,true
+        points,add,5
         scene,s04_campdonnell_camp_helpsoldier
     end
     // 38: Take a nap
@@ -545,6 +550,7 @@ scene s04_campdonnell_camp_helpsoldier
         // SW: 190 - Talked to soldier David
         if !190
             set,190,true
+            points,add,2
         end
     end
     // 39a: Help the soldier [D]
@@ -559,6 +565,7 @@ scene s04_campdonnell_camp_helpsoldier
     group event_39b
         // SW: 161 - Continued resting
         set,161,true
+        points,add,3
         scene,s04_campdonnell_camp_shooting
     end
     // Actions
@@ -606,6 +613,7 @@ scene s04_campdonnell_camp_shooting
             if !164
                 // SW: 164 - Show eat dinner hint
                 set,164,true
+                points,add,5
             else
                 print,15_ccs_h0
             end
@@ -619,7 +627,8 @@ scene s04_campdonnell_camp_shooting
             print,15_ccs_w0
             // SW: 163 - Went to dinner
             set,163,true
-            goto,s04_campdonnell_camp_dinner
+            points,add,5
+            scene,s04_campdonnell_camp_dinner
         else
             goto,~$$_w
         end
@@ -638,6 +647,7 @@ scene s04_campdonnell_camp_shooting
             print,15_ccs_t0
             // SW: 162 - Asked soldier about the situation
             set,162,true
+            points,add,5
         else
             print,t_10
         end
@@ -720,24 +730,29 @@ scene s04_campdonnell_camp_dinner
             print,16_ccd_t1
             // SW: 166 - Done mumbling about Japanese
             set,166,true
+            points,add,2
         elsif !167
             printc,16_ccd_t2,1n,16_ccd_t3,1n
             // SW: 167 - Stanley's challenge
             set,167,true
+            points,add,2
         elsif !168
             printc,16_ccd_t3,1n,16_ccd_h0,1n
         elsif !169
             print,16_ccd_t5
             // SW: 169 - Stanley talk sequence #1
             set,169,true
+            points,add,2
         elsif !170
             print,16_ccd_t6
             // SW: 170 - Stanley talk sequence #2
             set,170,true
+            points,add,2
         elsif !171
             print,16_ccd_t7
             // SW: 171 - Stanley talk sequence #3
             set,171,true
+            points,add,2
             scene,s04_campdonnell_camp_lookaround
         else
             print,t_10
@@ -758,6 +773,7 @@ scene s04_campdonnell_camp_dinner
             inv,rm,chicken
             // SW: 165 - Ate the chicken (for real)
             set,165,true
+            points,add,3
         else
             print,16_ccd_a1
         end
@@ -777,6 +793,7 @@ scene s04_campdonnell_camp_dinner
             print,16_ccd_t4
             // SW: 168 - Declined Stanley's challenge
             set,168,true
+            points,add,2
         else
             goto,$_f
         end
@@ -829,14 +846,17 @@ scene s04_campdonnell_camp_lookaround
             print,17_ccl_l1
             // SW: 172 - Look around sequence #1
             set,172,true
+            points,add,2
         elsif !173
             print,17_ccl_l2
             // SW: 173 - Look around sequence #2
             set,173,true
+            points,add,2
         elsif !174
             printc,17_ccl_l3,2n,17_ccl_l4,1n
             // SW: 174 - Look around sequence #33
             set,174,true
+            points,add,2
         else
             printc,17_ccl_l4,2n,17_ccl_l5,1n
         end
@@ -845,6 +865,7 @@ scene s04_campdonnell_camp_lookaround
     group event_43
         if 172,173,174
             print,17_ccl_a0
+            points,add,2
             scene,s04_campdonnell_liberation
         else
             goto,$_msp
@@ -891,6 +912,7 @@ scene s04_campdonnell_liberation
             print,18_fre_f1
             // SW: 175 - Narration sequence #1
             set,175,true
+            points,add,2
         elsif !176
             print,18_fre_f2
             // SW: 176 - Narration sequence #2

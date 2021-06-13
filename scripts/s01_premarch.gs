@@ -66,6 +66,7 @@ scene s01_premarch_exposition
         if !10
             print,01_pme_t3
             set,10,true
+            points,add,5
         else
             goto,$_f
         end
@@ -76,6 +77,7 @@ scene s01_premarch_exposition
             print,01_pme_l2
             set,11,true
             set,5,false
+            points,add,5
         else
             goto,$_f
         end
@@ -85,6 +87,7 @@ scene s01_premarch_exposition
         if 10,11,!12
             print,01_pme_l3
             set,12,true
+            points,add,5
         else
             goto,$_f
         end
@@ -93,6 +96,7 @@ scene s01_premarch_exposition
     group event_4a
         if 10,11,12,!13
             set,13,true
+            points,add,5
             scene,s01_premarch_ticket
         else
             goto,$_f
@@ -188,6 +192,7 @@ scene s01_premarch_ticket
         if !14
             print,02_pmt_a0
             set,14,true
+            points,add,5
         else
             goto,$_f
         end
@@ -198,6 +203,7 @@ scene s01_premarch_ticket
         if 14,!15
             print,02_pmt_t0
             set,15,true
+            points,add,2
         // CO: Surrender tickets
         elsif 14,15,!16
             printc,02_pmt_t1,2n
@@ -205,11 +211,15 @@ scene s01_premarch_ticket
             inv,list
             goto,tip_01
             set,16,true
+            points,add,2
         // CO: Sketchy system [P]
         elsif 14,15,16,!17
             print,02_pmt_t2
             // We keep switch no. 17 as-is because this is the last message
-            set,18,true
+            if !18
+                points,add,1
+                set,18,true
+            end
         else
             goto,~$$_t
         end
@@ -220,6 +230,7 @@ scene s01_premarch_ticket
             if_inv !ticket
                 inv,add,ticket
                 print,02_pmt_o0
+                points,add,5
             else
                 print,02_pmt_o1
             end
@@ -240,6 +251,7 @@ scene s01_premarch_ticket
                 printc,02_pmt_t3,02_pmt_t4,2n
                 inv,rm,ticket
                 inv,rm,white flag
+                points,add,5
                 scene,s01_premarch_hq
             else
                 printc,02_pmt_t3,02_pmt_d1,2n,@HRED,02_pmt_d2,@_,1n
@@ -354,6 +366,7 @@ scene s01_premarch_hq
     group $$_wd_n
         if !19
             set,19,true
+            points,add,5
             printc,03_pmh_w2,2n,03_pmh_w0,2n,03_pmh_w1,03_pmh_w3,2n,03_pmh_t1,1n
         else
             goto,$$_wd
@@ -382,6 +395,7 @@ scene s01_premarch_hq
         if 19,!20
             print,03_pmh_a0
             set,20,true
+            points,add,5
             scene,s01_premarch_final
         else
             goto,$_f
@@ -438,7 +452,10 @@ scene s01_premarch_final
         // X02: Talk with Antonio
         if 22,!24
             print,04_pmf_t0
-            set,23,true
+            if !23
+                set,23,true
+                points,add,2
+            end
         elsif 22,23,24
             print,04_pmf_t4
         else
@@ -495,6 +512,7 @@ scene s01_premarch_final
     group event_10a
         printc,04_pmf_l1,04_pmf_l2,1n
         set,22,true
+        points,add,5
     end
     // 10b: No to the march [D]
     group event_10b
@@ -506,15 +524,18 @@ scene s01_premarch_final
         set,24,true
         // SW: 25 - Friends with Antonio
         set,25,true
+        points,add,3
         print,04_pmf_t3
     end
     // 11b: "No to friends"
     group event_11b
         set,24,true
+        points,add,1
         printc,04_pmf_t1,2n,04_pmf_t2,1n
     end
     // 12: Switch to Cabcaben
     group event_12
+        points,add,5
         scene,s02_cabcaben_arrival
     end
     // Actions
