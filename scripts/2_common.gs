@@ -108,6 +108,6 @@ end
 
 // Actions: Affirmative/Negative
 action
-    yes,y,sure,certainly,of course,no problem,yeah,yez,talk yes|goto,$_aff
-    no,n,no way,nope,nawp,nah,not in a million years,never,talk no|goto,$_neg
+    yes,y,sure,certainly,of course,no problem,yeah,yez,talk yes,accept|goto,$_aff
+    no,n,no way,nope,nawp,nah,not in a million years,never,talk no,refuse|goto,$_neg
 end
