@@ -275,7 +275,7 @@ scene s02_cabcaben_arrival
             goto,$_go
         end
     end
-    // 19a: Throwing a rock at the Japanese [D]
+    // 19b: Throwing a rock at the Japanese [D]
     group event_19b
         if 64
             if_inv rock
