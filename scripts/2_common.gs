@@ -92,19 +92,6 @@ group $_neg
     end
 end
 
-// Interaction: swearing
-group $$_swear
-    goto,$_go
-end
-
-group $_swear
-    if !0,!2
-        goto,$$_swear
-    else
-        goto,$_f
-    end
-end
-
 // Common: missing or inaccessible items
 group $_ms
     printr,ms_1,ms_2
@@ -121,10 +108,4 @@ end
 action
     yes,y,sure,certainly,of course,no problem,yeah,yez,talk yes|goto,$_aff
     no,n,no way,nope,nawp,nah,not in a million years,never,talk no|goto,$_neg
-end
-
-// Actions: Swearing
-action
-    fuck,fuk,fack,fudge,f this,fuckdis,fuck this,fuck this shit,bitch,bitches,suck it,holy shit,holyshit,shit,bullshit,bullcrap,crap,cagar,bull shit,bull crap,s***,f***|goto,$_swear
-    puta,putangina,putragis,tangina,mierda,tanginamo,tangina mo,putanginamo,putangina mo,p***,taena,putaena,putangena,mamamo,mama mo|goto,$_swear
 end
