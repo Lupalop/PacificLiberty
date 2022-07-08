@@ -1,0 +1,54 @@
+/* @FILE: 99_debug.gs
+   © Lupalop Games - All Rights Reserved
+   Unauthorized copying of this file, via any medium is strictly prohibited
+   Proprietary and confidential
+   Contributor(s):
+     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
+*/
+
+// Common: Game over
+group $_go
+    if !0
+        printc,1n,@BRED,go_0,@_,2n
+        points,list
+        printc,1n,@BRED,@UE
+        printr,go_1,go_2,go_3,go_4
+        printc,1n,@UD,@_
+        //quit
+        printc,2n,<quit overridden>,1n
+    else
+        goto,$_f
+    end
+end
+
+// Scene shortcuts
+scene 0
+    group $
+        scene,s00_prompt
+    end
+end
+scene 1
+    group $
+        scene,s01_premarch_exposition
+    end
+end
+scene 2
+    group $
+        scene,s02_cabcaben_arrival
+    end
+end
+scene 3
+    group $
+        scene,s03_sanfernando_arrival
+    end
+end
+scene 4
+    group $
+        scene,s04_campdonnell_arrival
+    end
+end
+scene 5
+    group $
+        scene,s05_end
+    end
+end
