@@ -55,7 +55,7 @@ string
     @MAGB|\e[45m
     @CYNB|\e[46m
     @WHTB|\e[47m
-    // High intensty background 
+    // High intensity background 
     @BLKHB|\e[0;100m
     @REDHB|\e[0;101m
     @GRNHB|\e[0;102m
@@ -64,7 +64,7 @@ string
     @MAGHB|\e[0;105m
     @CYNHB|\e[0;106m
     @WHTHB|\e[0;107m
-    // High intensty text
+    // High intensity text
     @HBLK|\e[0;90m
     @HRED|\e[0;91m
     @HGRN|\e[0;92m
