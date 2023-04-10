@@ -24,81 +24,46 @@ string
 end
 
 //------------------------------------------------------------------------------
-// Command groups [Tips]
+// Functions [Tips]
 //------------------------------------------------------------------------------
 
-group tip_01
+function tip_01
     printc,@HGRN,%n,tip_01,%n,@_
 end
 
 //------------------------------------------------------------------------------
-// Command groups [Temporary]
-//------------------------------------------------------------------------------
-
-// Replacements for missing gotob (go to base group command)
-// XXX: Keep in sync with 1_platform.gs
-group ~$_f
-    printr,f_1,f_2,f_3,f_4
-end
-group ~$$_t
-    if !5
-        printr,t_1,t_2,t_3
-    else
-        printr,t_4,t_5,t_6
-    end
-end
-group ~$$_w
-    printr,w_1,w_2
-end
-group ~$$_l
-    printr,l_1,l_2,l_3,l_4
-end
-group ~$$_o
-    printr,o_1,o_2,o_3,o_4
-end
-group ~$$_wd
-    print,w_3
-end
-group ~$_ms
-    printr,ms_1,ms_2
-end
-group ~$_msp
-    print,ms_0
-end
-
-//------------------------------------------------------------------------------
-// Command groups [Custom]
+// Functions [Custom]
 //------------------------------------------------------------------------------
 
 // Interaction: affirmative response
-group $$_aff
-    goto,$_f
+function $$_aff
+    call,$_f
 end
-group $_aff
-    if !0,!2
-        goto,$$_aff
+function $_aff
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_aff
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: negative response
-group $$_neg
-    goto,$_f
+function $$_neg
+    call,$_f
 end
-group $_neg
-    if !0,!2
-        goto,$$_neg
+function $_neg
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_neg
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Common: missing or inaccessible items
-group $_ms
+function $_ms
     printr,ms_1,ms_2
 end
-group $_msp
+function $_msp
     print,ms_0
 end
 
@@ -108,6 +73,6 @@ end
 
 // Actions: Affirmative/Negative
 action
-    yes,y,sure,certainly,of course,no problem,yeah,yez,talk yes,accept|goto,$_aff
-    no,n,no way,nope,nawp,nah,not in a million years,never,talk no,refuse|goto,$_neg
+    yes,y,sure,certainly,of course,no problem,yeah,yez,talk yes,accept|call,$_aff
+    no,n,no way,nope,nawp,nah,not in a million years,never,talk no,refuse|call,$_neg
 end

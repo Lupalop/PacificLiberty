@@ -149,46 +149,46 @@ string
 end
 
 //------------------------------------------------------------------------------
-// Command groups
+// Functions
 //------------------------------------------------------------------------------
 
 /*
   Reserved switches:
-    0: disable all reserved global command groups
-    1: inventory and points access
-    2: interactions
-    3: game state load/save
-    4: (reserved)
-    5: use alternate talk sequence
-  6-9: (reserved)
+    0 reservedGCGDisabled      : disable all reserved global functions
+    1 inventoryPointsDisabled  : inventory and points access
+    2 interactionsDisabled     : interactions
+    3 saveLoadDisabled         : game state load/save
+    4                          : (reserved)
+    5 useAlternateTalkSequence : use alternate talk sequence
+  6-9                          : (reserved)
 */
 
 // Common: Unknown commands
-group $_f
+function $_f
     printr,f_1,f_2,f_3,f_4
 end
 
 // Common: Inventory access
-group $_i
-    if !0,!1
+function $_i
+    if !reservedGCGDisabled && !inventoryPointsDisabled
         inv,list
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Common: Points access
-group $_p
-    if !0,!1
+function $_p
+    if !reservedGCGDisabled && !inventoryPointsDisabled
         points,list
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Common: Game over
-group $_go
-    if !0
+function $_go
+    if !reservedGCGDisabled
         printc,1n,@BRED,go_0,@_,2n
         points,list
         printc,1n,@BRED,@UE
@@ -196,152 +196,152 @@ group $_go
         printc,1n,@UD,@_
         quit
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Common: Clear screen
-group $_cls
-    if !0
+function $_cls
+    if !reservedGCGDisabled
         print,@CLS
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // State: Save game
-group $_ss
-    if !0,!3
+function $_ss
+    if !reservedGCGDisabled && !saveLoadDisabled
         save
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // State: Load game
-group $_sl
-    if !0,!3
+function $_sl
+    if !reservedGCGDisabled && !saveLoadDisabled
         load
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: Talk
-group $$_t
-    if !5
+function $$_t
+    if !useAlternateTalkSequence
         printr,t_1,t_2,t_3
     else
         printr,t_4,t_5,t_6
     end
 end
-group $_t
-    if !0,!2
-        goto,$$_t
+function $_t
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_t
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: Walk
-group $$_w
+function $$_w
     printr,w_1,w_2
 end
-group $_w
-    if !0,!2
-        goto,$$_w
+function $_w
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_w
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: Walk Towards Direction
 // D: Generic
-group $$_wd
+function $$_wd
     print,w_3
 end
-group $_wd
-    if !0,!2
-        goto,$$_wd
+function $_wd
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_wd
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // D: North
-group $$_wd_n
-    goto,$$_wd
+function $$_wd_n
+    call,$$_wd
 end
-group $_wd_n
-    if !0,!2
-        goto,$$_wd_n
+function $_wd_n
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_wd_n
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // D: South
-group $$_wd_s
-    goto,$$_wd
+function $$_wd_s
+    call,$$_wd
 end
-group $_wd_s
-    if !0,!2
-        goto,$$_wd_s
+function $_wd_s
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_wd_s
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // D: East
-group $$_wd_e
-    goto,$$_wd
+function $$_wd_e
+    call,$$_wd
 end
-group $_wd_e
-    if !0,!2
-        goto,$$_wd_e
+function $_wd_e
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_wd_e
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // D: West
-group $$_wd_w
-    goto,$$_wd
+function $$_wd_w
+    call,$$_wd
 end
-group $_wd_w
-    if !0,!2
-        goto,$$_wd_w
+function $_wd_w
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_wd_w
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: Look
-group $$_l
+function $$_l
     printr,l_1,l_2,l_3,l_4
 end
-group $_l
-    if !0,!2
-        goto,$$_l
+function $_l
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_l
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: Taking objects (generic)
-group $$_o
+function $$_o
     printr,o_1,o_2,o_3
 end
-group $_o
-    if !0,!2
-        goto,$$_o
+function $_o
+    if !reservedGCGDisabled && !interactionsDisabled
+        call,$$_o
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Interaction: Taking objects (unavailable)
-group $_o_u
+function $_o_u
     printr,o_1,o_2,o_3
 end
 
@@ -351,44 +351,44 @@ end
 
 // Actions: Common/State
 action
-    fallback|goto,$_f
-    inventory,check inventory,get inventory,inv,check inv,get inv|goto,$_i
-    bag,check bag,get bag|goto,$_i
-    score,check score,view score|goto,$_p
-    points,check points,view points|goto,$_p
-    clear,cls|goto,$_cls
-    save|goto,$_ss
-    load|goto,$_sl
+    fallback|call,$_f
+    inventory,check inventory,get inventory,inv,check inv,get inv|call,$_i
+    bag,check bag,get bag|call,$_i
+    score,check score,view score|call,$_p
+    points,check points,view points|call,$_p
+    clear,cls|call,$_cls
+    save|call,$_ss
+    load|call,$_sl
     quit|quit
 end
 
 // Actions: Interactions
 action
     // Talk/Converse/Chat/Speak
-    talk,talk to,talk with|goto,$_t
-    converse,converse to,converse with|goto,$_t
-    chat,chat to,chat with|goto,$_t
-    speak,speak to,speak with|goto,$_t
+    talk,talk to,talk with|call,$_t
+    converse,converse to,converse with|call,$_t
+    chat,chat to,chat with|call,$_t
+    speak,speak to,speak with|call,$_t
     
     // Pick/Take/Get/Snatch/Grasp/Pull/Reach
-    pick,take,get,snatch,grasp,pull,reach|goto,$_o
+    pick,take,get,snatch,grasp,pull,reach|call,$_o
     
     // Look/View/See/Check
-    look,look around,look surroundings,look at,look place|goto,$_l
-    view,view around,view surroundings,view place|goto,$_l
-    see,see around,see surroundings,see place|goto,$_l
-    check,check around,check surroundings,check place|goto,$_l
+    look,look around,look surroundings,look at,look place|call,$_l
+    view,view around,view surroundings,view place|call,$_l
+    see,see around,see surroundings,see place|call,$_l
+    check,check around,check surroundings,check place|call,$_l
     
     // Walk/Run/Go/Travel
-    walk,run,go,travel|goto,$_w
+    walk,run,go,travel|call,$_w
     
     // Walk/Run/Go/Travel Towards Direction
     // D: North
-    walk north,walk n,run north,run n,go north,go n,travel north,travel n|goto,$_wd_n
+    walk north,walk n,run north,run n,go north,go n,travel north,travel n|call,$_wd_n
     // D: South
-    walk south,walk s,run south,run s,go south,go s,travel south,travel s|goto,$_wd_s
+    walk south,walk s,run south,run s,go south,go s,travel south,travel s|call,$_wd_s
     // D: East
-    walk east,walk e,run east,run e,go east,go e,travel east,travel e|goto,$_wd_e
+    walk east,walk e,run east,run e,go east,go e,travel east,travel e|call,$_wd_e
     // D: West
-    walk west,walk w,run west,run w,go west,go w,travel west,travel w|goto,$_wd_w
+    walk west,walk w,run west,run w,go west,go w,travel west,travel w|call,$_wd_w
 end

@@ -70,22 +70,22 @@ scene s02_cabcaben_arrival
         rock|A rock. What else were you expecting?
     end
     // LGO: Entry
-    group $
+    function $
         print,05_cba_l0
     end
     // LGO: Fallback
-    group $_f
+    function $_f
         // SWE: 99 - Rock death sequence
-        if 2,99
-            goto,event_16
-        elsif 2,63
-            goto,event_18
+        if interactionsDisabled && 99
+            call,event_16
+        elsif interactionsDisabled && 63
+            call,event_18
         else
-            goto,~$_f
+            super
         end
     end
     // LGO: Talk
-    group $$_t
+    function $$_t
         // SW: 51 - Talk #1 with Soldier
         if !51
             print,05_cba_t0
@@ -102,8 +102,8 @@ scene s02_cabcaben_arrival
             set,53,true
             points,add,2
         // SW: 57 - Enable handling of question about plan
-        elsif 54,56,!57
-            if_inv rock
+        elsif 54 && 56 && !57
+            if i:rock
                 printc,05_cba_t3,2n,05_cba_t4,1n
             else
                 print,05_cba_t4
@@ -111,25 +111,25 @@ scene s02_cabcaben_arrival
             set,57,true
             points,add,2
         // SWE: 57 - Question about plan (prompt)
-        elsif 57,!58
+        elsif 57 && !58
             print,05_cba_t4
         // SWE: 63 - Enabled steal keys plan
-        elsif 63,!65
-            goto,event_20
+        elsif 63 && !65
+            call,event_20
         else
-            goto,~$$_t
+            super
         end
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         // L0: Shown during soldier talks
-        if !51,!52,!53
+        if !51 && !52 && !53
             print,05_cba_l0
         // L1: Shown when player hasn't stood up (on ground)
-        elsif 53,!54
+        elsif 53 && !54
             print,05_cba_l1
         // L2: Shown during conversation with Antonio
-        elsif 54,!58
+        elsif 54 && !58
             print,05_cba_l2
             // SW: 56 - Allow talk to Antonio
             if !56
@@ -137,44 +137,44 @@ scene s02_cabcaben_arrival
                 points,add,5
             end
         // L3: Shown after Japanese approach
-        elsif 63,!65
+        elsif 63 && !65
             print,05_cba_l3
         else
-            goto,~$$_l
+            super
         end
     end
     // LGO: Affirmative
-    group $$_aff
-        if 57,!58
-            goto,event_15a
+    function $$_aff
+        if 57 && !58
+            call,event_15a
         else
-            goto,$_f
+            call,$_f
         end
     end
     // LGO: Negative
-    group $$_neg
-        if 57,!58
-            goto,event_15b
+    function $$_neg
+        if 57 && !58
+            call,event_15b
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 13: Stand up
-    group event_13
+    function event_13
         // SW: 54 - Stood up 
-        if 53,!54
+        if 53 && !54
             print,05_cba_l2
             set,54,true
             points,add,2
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 14: Rock weapon
-    group event_14
+    function event_14
         // SW: 55 - Rock: can't be picked anymore
-        if 54,!55
-            if_inv rock
+        if 54 && !55
+            if i:rock
                 inv,add,rock
                 print,05_cba_o0
                 points,add,5
@@ -183,59 +183,59 @@ scene s02_cabcaben_arrival
                 print,05_cba_o1
             end
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 15a: YES to plan [P]
-    group event_15a
+    function event_15a
         // Not friends scenario [D]
         if !25
-            if_inv rock
+            if i:rock
                 // SW: 99 - Is rock death sequence enabled?
                 set,99,true
                 // Disable all interactions
-                set,2,true
+                set,interactionsDisabled,true
                 print,05_cba_d0
             else
                 // Plan was refused by Antonio
                 print,05_cba_t5
-                goto,$_go
+                call,$_go
             end
         // Friends, success scenario
         else
-            goto,event_17
+            call,event_17
         end
         // SW: 58 - Plan question sequence finished
         set,58,true
     end
     // 15b: NO to plan [P]
-    group event_15b
+    function event_15b
         // Rock without plan [D]
-        if_inv rock
+        if i:rock
             // SW: 99 - Is rock death sequence enabled?
             set,99,true
             // Disable all interactions
-            set,2,true
-            goto,event_16
+            set,interactionsDisabled,true
+            call,event_16
         // Just without plan
         else
             // Not friends scenario [D]
             if !25
                 // Plan was refused by Antonio
                 print,05_cba_t5
-                goto,$_go
+                call,$_go
             // Friends, success scenario
             else
-                goto,event_17
+                call,event_17
             end
         end
         // SW: 58 - Plan question sequence finished
         set,58,true
     end
     // 16: Death by rock [D]
-    group event_16
+    function event_16
         // SW: 59 - Rock death sequence #1 [Friends]
-        if 25,!59
+        if 25 && !59
             print,05_cba_d1
             set,59,true
         // SW: 60 - Rock death sequence #2
@@ -250,13 +250,13 @@ scene s02_cabcaben_arrival
         elsif !62
             print,05_cba_d4
             set,62,true
-            goto,$_go
+            call,$_go
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 17: Stealing the keys suggestion
-    group event_17
+    function event_17
         // SW: 63 - Steal keys plan
         if !63
             print,05_cba_t6
@@ -264,65 +264,65 @@ scene s02_cabcaben_arrival
             set,55,true
             set,63,true
             // Disable all interactions (Japanese approach)
-            set,2,true
+            set,interactionsDisabled,true
             points,add,5
         end
     end
     // 18: Japanese soldier approach
-    group event_18
+    function event_18
         print,05_cba_a1
         // SW: 64 - Can fight back Japanese soldier
         set,64,true
         // Restore all interactions
-        set,2,false
+        set,interactionsDisabled,false
         points,add,5
     end
     // 19a: Fighting back to the Japanese [D]
-    group event_19a
+    function event_19a
         if 64
             print,05_cba_d5
-            goto,$_go
+            call,$_go
         end
     end
     // 19b: Throwing a rock at the Japanese [D]
-    group event_19b
+    function event_19b
         if 64
-            if_inv rock
+            if i:rock
                 printc,05_cba_d6,2n,05_cba_d5,1n
-                goto,$_go
+                call,$_go
             else
-                goto,$_ms
+                call,$_ms
             end
         end
     end
     // 19c: Killing Antonio [D]
-    group event_19c
+    function event_19c
         if 56
             if !25
                 printc,05_cba_d2,2n,05_cba_d7,1n
-                goto,$_go
+                call,$_go
             else
                 print,05_cba_a2
             end
         else
-            goto,$_ms
+            call,$_ms
         end
     end
     // 19d: Throwing rock at Antonio [D]
-    group event_19d
+    function event_19d
         if 56
             if !25
                 printc,05_cba_d8,2n,05_cba_d5,1n
-                goto,$_go
+                call,$_go
             else
                 print,05_cba_a2
             end
         else
-            goto,$_ms
+            call,$_ms
         end
     end
     // 20: End of scene
-    group event_20
+    function event_20
         // SW: 65 - Final plan talk
         set,65,true
         points,add,5
@@ -330,15 +330,15 @@ scene s02_cabcaben_arrival
     end
     // Actions
     action
-        get up,stand up,stand,walk up|goto,event_13
-        pick rock,take rock,get rock,snatch rock,grasp rock,pull rock,reach rock|goto,event_14
-        fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill japanese soldier,kill japanese,kill jap soldier,kill japs|goto,event_19a
-        throw rock,throw rock at japanese soldier,throw rock at jap soldier,throw rock at soldier,trhwo rock at japs|goto,event_19b
-        kill antonio,strangle antonio,kick antonio|goto,event_19c
-        throw rock at antonio,throw rock antonio|goto,event_19d
-        talk antonio,talk to antonio,talk with antonio|goto,$_t
-        converse antonio,converse to antonio,converse with antonio|goto,$_t
-        chat antonio,chat to antonio,chat with antonio|goto,$_t
-        speak antonio,speak to antonio,speak with antonio|goto,$_t
+        get up,stand up,stand,walk up|call,event_13
+        pick rock,take rock,get rock,snatch rock,grasp rock,pull rock,reach rock|call,event_14
+        fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill japanese soldier,kill japanese,kill jap soldier,kill japs|call,event_19a
+        throw rock,throw rock at japanese soldier,throw rock at jap soldier,throw rock at soldier,trhwo rock at japs|call,event_19b
+        kill antonio,strangle antonio,kick antonio|call,event_19c
+        throw rock at antonio,throw rock antonio|call,event_19d
+        talk antonio,talk to antonio,talk with antonio|call,$_t
+        converse antonio,converse to antonio,converse with antonio|call,$_t
+        chat antonio,chat to antonio,chat with antonio|call,$_t
+        speak antonio,speak to antonio,speak with antonio|call,$_t
     end
 end

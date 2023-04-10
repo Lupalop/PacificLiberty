@@ -8,7 +8,7 @@
 
 // Scene: Initial
 scene initial
-    group $
+    function $
         scene,s00_prompt
     end
 end
@@ -35,22 +35,22 @@ scene s00_prompt
         tA2|Welcome to Pacific Liberty! Would you like some instructions?%n
     end
     // Show introduction question on entry
-    group $
-        set,0,true
+    function $
+        set,reservedGCGDisabled,true
         printc,tAd0,tAd1
         printc,1n,@HBLU,tAh0,tAh1,tAh2,tAh3,tAh4,tAh5,@HRED,tAh6,tAh7,tAh8,tAh9,tAh10,tAh11,@_,tA2
     end
     // Re-ask the question on invalid keywords
-    group $_f
+    function $_f
         printc,tA1,tA2
     end
     // YES
-    group $_aff
+    function $_aff
         scene,s00_introduction
     end
     // NO
-    group $_neg
-        set,0,false
+    function $_neg
+        set,reservedGCGDisabled,false
         scene,s01_premarch_exposition
     end
 end
@@ -88,15 +88,15 @@ scene s00_introduction
           tE|╚══════════════════════════════════════════════════════════════════════════════╝
     end
     // Show readme on entry
-    group $
+    function $
         // Set color to blue
         printc,@CLS,@BLUB
         // Print the entire readme
         printc,tH,tI0,tI1,tI2,tI3,tS,tI4,tI5,tI6,tI7,tI8,tS,tI9,tI10,tI11,tI12,tI13,tS,tI14,tI15,tI16,tI17,tS,tI18,tI19,tE,@_,2n
     end
     // Fallback: automatically start the game on any command
-    group $_f
-        set,0,false
+    function $_f
+        set,reservedGCGDisabled,false
         print,@CLS
         scene,s01_premarch_exposition
     end

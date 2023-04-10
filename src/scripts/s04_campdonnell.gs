@@ -52,19 +52,19 @@
 // Camp O'Donnell: Part 01 (Arrival)
 scene s04_campdonnell_arrival
     //===============
-    // @DEF duplicated groups from s02_cabcaben_arrival
+    // @DEF duplicated functions from s02_cabcaben_arrival
     // 19a: Fighting back to the Japanese [D]
-    group event_19a
+    function event_19a
         print,05_cba_d5
-        goto,$_go
+        call,$_go
     end
     // 19b: Throwing a rock at the Japanese [D]
-    group event_19b
-        if_inv rock
+    function event_19b
+        if i:rock
             printc,05_cba_d6,2n,05_cba_d5,1n
-            goto,$_go
+            call,$_go
         else
-            goto,$_ms
+            call,$_ms
         end
     end
     // @END
@@ -87,158 +87,158 @@ scene s04_campdonnell_arrival
         10_cda_a0|My hunger can wait.
     end
     // LGO: Entry
-    group $
+    function $
         set,5,false
         print,10_cda_l0
     end
     // LGO: Fallback
-    group $_f
+    function $_f
         // SWE: 199 - death by food stealing
-        if 2,199
-            goto,event_29
+        if interactionsDisabled && 199
+            call,event_29
         else
-            goto,~$_f
+            super
         end
     end
     // LGO: Talk
-    group $$_t
-        if !150;!151
+    function $$_t
+        if !150 || !151
             printc,t_10,10_cda_t1,1n
         elsif !152
             print,t_10
         else
-            goto,~$$_t
+            super
         end
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         if !150
             print,10_cda_l0
-        elsif 150,!151
+        elsif 150 && !151
             print,10_cda_l1
-        elsif 151,!152
+        elsif 151 && !152
             print,10_cda_l2
         else
-            goto,~$$_l
+            super
         end
     end
     // LGO: Walk
-    group $$_w
-        goto,event_29
+    function $$_w
+        call,event_29
     end
     // LGO: Objects
-    group $$_o
+    function $$_o
         // E: Taking objects isn't deadly anymore
         if !150
-            goto,event_29
+            call,event_29
         else
-            goto,~$$_o
+            super
         end
     end
     // LGO: Direction (Generic)
-    group $$_wd
-        goto,event_29
+    function $$_wd
+        call,event_29
     end
     // LGO: Affirmative
-    group $$_aff
+    function $$_aff
         // E: Took the food [D]
-        if 150,!151
-            goto,event_30
+        if 150 && !151
+            call,event_30
         // E: Accepted room assignments
-        elsif 151,!152
-            goto,event_32a
+        elsif 151 && !152
+            call,event_32a
         else
-            goto,$_f
+            call,$_f
         end
     end
     // LGO: Negative
-    group $$_neg
+    function $$_neg
         // E: Refused to stand under the sun
         if !150
-            goto,event_29
+            call,event_29
         // E: Hunger can wait
-        elsif 150,!151
-            goto,event_31
+        elsif 150 && !151
+            call,event_31
         // E: Defied room orders
-        elsif 151,!152
-            goto,event_32b
+        elsif 151 && !152
+            call,event_32b
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 28: Stayed here
-    group event_28
+    function event_28
         // E: Food is available
         if !150
             print,10_cda_l1
             // SW: 150 - Begin food prompt
             set,150,true
         // E: Hunger can wait
-        elsif 150,!151
-            goto,event_31
+        elsif 150 && !151
+            call,event_31
         // E: Defied room orders
-        elsif 151,!152
-            goto,event_32b
+        elsif 151 && !152
+            call,event_32b
         // E: Inaccessible
         else
-            goto,$_msp
+            call,$_msp
         end
     end
     // 29: Defied Japanese orders [D]
-    group event_29
+    function event_29
         printr,10_cda_d1,10_cda_d2
-        goto,$_go
+        call,$_go
     end
     // 30: Took the food [D]
-    group event_30
-        if 150,!151
+    function event_30
+        if 150 && !151
             print,10_cda_d0
             // SW: 199 - Death by food stealing
             set,199,true
             // Disable all interactions
-            set,2,true
+            set,interactionsDisabled,true
         else
-            goto,$_msp
+            call,$_msp
         end
     end
     // 31: Endure hunger
-    group event_31
-        if 150,!151
+    function event_31
+        if 150 && !151
             printc,10_cda_a0,2n,10_cda_l2,1n
             // SW: 151 - Enter the room prompt
             set,151,true
             points,add,5
         else
-            goto,$_msp
+            call,$_msp
         end
     end
     // 32a: Accepted room and task assignments
-    group event_32a
+    function event_32a
         // SW: 152 - Moved to room assignment
         set,152,true
         points,add,5
         scene,s04_campdonnell_room
     end
     // 32b: Defied room and task orders [D]
-    group event_32b
+    function event_32b
         print,10_cda_d1
-        goto,$_go
+        call,$_go
     end
     // Actions
     action
-        stay,stay here,stay in place,stand still,standing still,stand here,stand,remain in place,remain here standing,remain here,remain,do not go away,don't go away,don't go in,do not go in|goto,event_28
-        run away,walk away,go away,travel away,run in fear,run fear,walk in fear,walk fear,go in fear,go fear,travel in fear,travel fear,i am a coward,i'm a coward,coward|goto,event_29
+        stay,stay here,stay in place,stand still,standing still,stand here,stand,remain in place,remain here standing,remain here,remain,do not go away,don't go away,don't go in,do not go in|call,event_28
+        run away,walk away,go away,travel away,run in fear,run fear,walk in fear,walk fear,go in fear,go fear,travel in fear,travel fear,i am a coward,i'm a coward,coward|call,event_29
         // Food-specific
-        food,pick food,take food,get food,snatch food,grasp food,pull food,reach food|goto,event_30
+        food,pick food,take food,get food,snatch food,grasp food,pull food,reach food|call,event_30
         // Walk-related
-        the room,room,enter room,enter the room|goto,event_32a
-        walk room,walk to room|goto,event_32a
-        run room,run to room|goto,event_32a
-        go room,go to room|goto,event_32a
-        travel room,travel to room|goto,event_32a
+        the room,room,enter room,enter the room|call,event_32a
+        walk room,walk to room|call,event_32a
+        run room,run to room|call,event_32a
+        go room,go to room|call,event_32a
+        travel room,travel to room|call,event_32a
         // Imported actions
-        fight,fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill,kill japanese soldier,kill japanese,kill jap soldier,kill japs|goto,event_19a
-        throw rock,throw rock at japanese soldier,throw rock at jap soldier,throw rock at soldier,trhwo rock at japs|goto,event_19b
+        fight,fight back,fight japanese soldier,fight japanese,fight jap soldier,fight jap,kill,kill japanese soldier,kill japanese,kill jap soldier,kill japs|call,event_19a
+        throw rock,throw rock at japanese soldier,throw rock at jap soldier,throw rock at soldier,trhwo rock at japs|call,event_19b
     end
 end
 
@@ -255,42 +255,42 @@ scene s04_campdonnell_room
         11_cdr_a0|You're tired and sat near one of the room's corners to rest. You were startled%nwhen a Japanese soldier entered. He saw you resting, defying their orders.
     end
     // LGO: Entry
-    group $
+    function $
         set,5,false
         print,11_cdr_l0
     end
     // LGO: Fallback
-    group $_f
+    function $_f
         // SWE: 198 - Death by sleeping
-        if 2,198
-            goto,event_33b
+        if interactionsDisabled && 198
+            call,event_33b
         else
-            goto,~$_f
+            super
         end
     end
     // LGO: Talk
-    group $$_t
+    function $$_t
         print,t_10
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         print,11_cdr_l0
     end
     // 33a: Take a rest [D]
-    group event_33a
+    function event_33a
         print,11_cdr_a0
         // SW: 198 - Death by sleeping
         set,198,true
         // Disable all interactions
-        set,2,true
+        set,interactionsDisabled,true
     end
     // 33b: Death by sleeping [D]
-    group event_33b
+    function event_33b
         print,11_cdr_d0
-        goto,$_go
+        call,$_go
     end
     // 34: Look for food
-    group event_34
+    function event_34
         // SW: 153 - Moved to hunting assignment
         set,153,true
         points,add,5
@@ -298,8 +298,8 @@ scene s04_campdonnell_room
     end
     // Actions
     action
-        take a rest now,take a rest,rest now,rest,take a nap,nap,nap now,sleep,sleep floor,sleep corner,go sleep,go rest,go nap|goto,event_33a
-        look for food,look food,food,search for food,search food,scavenge for food,scavenge food,hunt for food,hunt food|goto,event_34
+        take a rest now,take a rest,rest now,rest,take a nap,nap,nap now,sleep,sleep floor,sleep corner,go sleep,go rest,go nap|call,event_33a
+        look for food,look food,food,search for food,search food,scavenge for food,scavenge food,hunt for food,hunt food|call,event_34
     end
 end
 
@@ -328,30 +328,30 @@ scene s04_campdonnell_hunting
         chicken|A dead chicken. Poor guy.
     end
     // LGO: Entry
-    group $
+    function $
         set,5,true
-        goto,$$_l
+        call,$$_l
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         if !154
             print,12_cdh_l0
-        elsif 154,!155
+        elsif 154 && !155
             printc,12_cdh_l2,2n,12_cdh_l3,1n
         else
-            goto,~$$_l
+            super
         end
     end
     // L: Chicken
-    group _l_chicken
-        if_inv !chicken
+    function _l_chicken
+        if !i:chicken
             print,12_cdh_l1
         else
             print,12_cdh_l2
         end
     end
     // T: Chicken
-    group _t_chicken
+    function _t_chicken
         if 154
             print,12_cdh_t1
         else
@@ -359,7 +359,7 @@ scene s04_campdonnell_hunting
         end
     end
     // 35a: Kill chicken
-    group event_35a
+    function event_35a
         if !154
             printc,12_cdh_a0,2n,12_cdh_l3,1n
             inv,add,chicken
@@ -371,62 +371,62 @@ scene s04_campdonnell_hunting
         end
     end
     // 35b: Leave chicken alone [D]
-    group event_35b
+    function event_35b
         if !154
             print,12_cdh_d0
-            goto,$_go
+            call,$_go
         else
             print,12_cdh_l2
         end
     end
     // 36a: Eat the chicken [D]
-    group event_36a
+    function event_36a
         if 154
             inv,rm,chicken
             print,12_cdh_d1
-            goto,$_go
+            call,$_go
         else
             print,12_cdh_a2
         end
     end
     // 36b: Don't eat the chicken
-    group event_36b
+    function event_36b
         if 154
             // SW: 155 - Refused to eat the chicken
             set,155,true
             points,add,5
             scene,s04_campdonnell_camp_returnprompt
         else
-            if_inv !chicken
+            if !i:chicken
                 print,12_cdh_a1
             else
-                goto,$_ms
+                call,$_ms
             end
         end
     end
     // 35b/36b: Dual action
-    group event_d_35b_36b
+    function event_d_35b_36b
         if !154
-            goto,event_35b
+            call,event_35b
         else
-            goto,event_36b
+            call,event_36b
         end
     end
     // Actions
     action
         // Hunting actions
-        chicken,look chicken,view chicken,see chicken,check chicken|goto,_l_chicken
-        talk chicken,talk to chicken,talk with chicken|goto,_t_chicken
-        converse chicken,converse to chicken,converse with chicken|goto,_t_chicken
-        chat chicken,chat to chicken,chat with chicken|goto,_t_chicken
-        speak chicken,speak to chicken,speak with chicken|goto,_t_chicken
-        kill,kill the chicken,kill chicken,hunt,hunt the chicken,hunt chicken,hunt and kill,hunt and kill the chicken,hunt and kill chicken,hunt kill chicken,hunt for more chicken,hunt for more,hunt more chicken|goto,event_35a
-        do not kill the chicken,don't kill the chicken,don't kill chicken,allow the chicken to escape,allow chicken to escape,allow chicken escape,chicken escape,escape chicken|goto,event_35b
+        chicken,look chicken,view chicken,see chicken,check chicken|call,_l_chicken
+        talk chicken,talk to chicken,talk with chicken|call,_t_chicken
+        converse chicken,converse to chicken,converse with chicken|call,_t_chicken
+        chat chicken,chat to chicken,chat with chicken|call,_t_chicken
+        speak chicken,speak to chicken,speak with chicken|call,_t_chicken
+        kill,kill the chicken,kill chicken,hunt,hunt the chicken,hunt chicken,hunt and kill,hunt and kill the chicken,hunt and kill chicken,hunt kill chicken,hunt for more chicken,hunt for more,hunt more chicken|call,event_35a
+        do not kill the chicken,don't kill the chicken,don't kill chicken,allow the chicken to escape,allow chicken to escape,allow chicken escape,chicken escape,escape chicken|call,event_35b
         // Dual meaning actions
-        leave,leave the chicken alone,leave chicken alone,leave chicken,leaving it alone,leave it alone,leave it,stay here,stay,do not move,don't move,no move|goto,event_d_35b_36b
+        leave,leave the chicken alone,leave chicken alone,leave chicken,leaving it alone,leave it alone,leave it,stay here,stay,do not move,don't move,no move|call,event_d_35b_36b
         // Eat or leave chicken alone actions
-        cook the chicken,cook chicken,cook,eat the chicken raw,eat chicken raw,eat it raw,eat the chicken,eat chicken,eating the chicken raw,eating chicken raw,eating chicken|goto,event_36a
-        do not eat the chicken,do not eat chicken,don't eat the chicken,don't eat chicken,don't eat,don't eat it raw,don't eat it,no eat,no chicken eat,no chicken eat raw|goto,event_36b
+        cook the chicken,cook chicken,cook,eat the chicken raw,eat chicken raw,eat it raw,eat the chicken,eat chicken,eating the chicken raw,eating chicken raw,eating chicken|call,event_36a
+        do not eat the chicken,do not eat chicken,don't eat the chicken,don't eat chicken,don't eat,don't eat it raw,don't eat it,no eat,no chicken eat,no chicken eat raw|call,event_36b
     end
 end
 
@@ -441,35 +441,35 @@ scene s04_campdonnell_camp_returnprompt
         13_rtc_l1|You've the option of:%n * returning to the camp immediately, or%n * taking a quick nap and rest.
     end
     // LGO: Entry
-    group $
+    function $
         set,5,false
         printc,13_rtc_l0,2n,13_rtc_l1,1n
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         print,13_rtc_l1
     end
     // 37: Return to camp
-    group event_37
+    function event_37
         // SW: 156 - Returned to the camp
         set,156,true
         points,add,5
         scene,s04_campdonnell_camp_helpsoldier
     end
     // 38: Take a nap
-    group event_38
+    function event_38
         print,13_rtc_d0
-        goto,$_go
+        call,$_go
     end
     // Actions
     action
-        returning to camp immediately,returning camp immediately,returning camp,return to camp, return camp,return,return now|goto,event_37
-        walk camp,walk to camp|goto,event_37
-        run camp,run to camp|goto,event_37
-        go camp,go to camp|goto,event_37
-        travel camp,travel to camp|goto,event_37
+        returning to camp immediately,returning camp immediately,returning camp,return to camp, return camp,return,return now|call,event_37
+        walk camp,walk to camp|call,event_37
+        run camp,run to camp|call,event_37
+        go camp,go to camp|call,event_37
+        travel camp,travel to camp|call,event_37
         
-        taking a quick nap and rest,taking a quick nap,take a nap,take nap,nap,take quick nap,quick nap,rest,sleep,quick rest,rest now|goto,event_38
+        taking a quick nap and rest,taking a quick nap,take a nap,take nap,nap,take quick nap,quick nap,rest,sleep,quick rest,rest now|call,event_38
     end
 end
 
@@ -492,13 +492,13 @@ scene s04_campdonnell_camp_helpsoldier
         14_chs_t1|"Thanks!" said David. Both of you proceeded to go outside...
     end
     // LGO: Entry
-    group $
+    function $
         set,5,true
         printc,14_chs_l0,2n,14_chs_l1,1n
     end
     // LGO: Fallback
-    group $_f
-        if 2,197
+    function $_f
+        if interactionsDisabled && 197
             // SW: 157 - Death by cleaning the fence sequence #1
             if !157
                 print,14_chs_d0
@@ -515,37 +515,37 @@ scene s04_campdonnell_camp_helpsoldier
             elsif !160
                 print,14_chs_d3
                 set,160,true
-                goto,$_go
+                call,$_go
             // This shouldn't be reached. Oh well...
             else
-                goto,$_go
+                call,$_go
             end
         else
-            goto,~$_f
+            super
         end
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         print,14_chs_l1
     end
     // LGO: Affirmative
-    group $$_aff
+    function $$_aff
         if 190
-            goto,event_39a
+            call,event_39a
         else
             print,14_chs_l1
         end
     end
     // LGO: Negative
-    group $$_neg
+    function $$_neg
         if 190
-            goto,event_39b
+            call,event_39b
         else
             print,14_chs_l1
         end
     end
     // T: Soldier
-    group _t_soldier
+    function _t_soldier
         print,14_chs_t0
         // SW: 190 - Talked to soldier David
         if !190
@@ -554,15 +554,15 @@ scene s04_campdonnell_camp_helpsoldier
         end
     end
     // 39a: Help the soldier [D]
-    group event_39a
+    function event_39a
         print,14_chs_t1
         // SW: 197 - Death by cleaning the fence
         set,197,true
         // Disable all interactions
-        set,2,true
+        set,interactionsDisabled,true
     end
     // 39b: Continue resting
-    group event_39b
+    function event_39b
         // SW: 161 - Continued resting
         set,161,true
         points,add,3
@@ -570,18 +570,18 @@ scene s04_campdonnell_camp_helpsoldier
     end
     // Actions
     action
-        talk soldier,talk to soldier,talk with soldier|goto,_t_soldier
-        converse soldier,converse to soldier,converse with soldier|goto,_t_soldier
-        chat soldier,chat to soldier,chat with soldier|goto,_t_soldier
-        speak soldier,speak to soldier,speak with soldier|goto,_t_soldier
-        talk troop,talk to troop,talk with troop|goto,_t_soldier
-        converse troop,converse to troop,converse with troop|goto,_t_soldier
-        chat troop,chat to troop,chat with troop|goto,_t_soldier
-        speak troop,speak to troop,speak with troop|goto,_t_soldier
-        talk david,talk to david,talk with david|goto,_t_soldier
-        converse david,converse to david,converse with david|goto,_t_soldier
-        chat david,chat to david,chat with david|goto,_t_soldier
-        speak david,speak to david,speak with david|goto,_t_soldier
+        talk soldier,talk to soldier,talk with soldier|call,_t_soldier
+        converse soldier,converse to soldier,converse with soldier|call,_t_soldier
+        chat soldier,chat to soldier,chat with soldier|call,_t_soldier
+        speak soldier,speak to soldier,speak with soldier|call,_t_soldier
+        talk troop,talk to troop,talk with troop|call,_t_soldier
+        converse troop,converse to troop,converse with troop|call,_t_soldier
+        chat troop,chat to troop,chat with troop|call,_t_soldier
+        speak troop,speak to troop,speak with troop|call,_t_soldier
+        talk david,talk to david,talk with david|call,_t_soldier
+        converse david,converse to david,converse with david|call,_t_soldier
+        chat david,chat to david,chat with david|call,_t_soldier
+        speak david,speak to david,speak with david|call,_t_soldier
     end
 end
 
@@ -600,12 +600,12 @@ scene s04_campdonnell_camp_shooting
         15_ccs_w0|You walked outside your room, towards where everyone is 'eating'.
     end
     // LGO: Entry
-    group $
+    function $
         set,5,true
         print,15_ccs_l0
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         if !162
             print,15_ccs_l0
         elsif !163
@@ -618,11 +618,11 @@ scene s04_campdonnell_camp_shooting
                 print,15_ccs_h0
             end
         else
-            goto,~$$_l
+            super
         end
     end
     // LGO: Walk
-    group $$_w
+    function $$_w
         if 162
             print,15_ccs_w0
             // SW: 163 - Went to dinner
@@ -630,19 +630,19 @@ scene s04_campdonnell_camp_shooting
             points,add,5
             scene,s04_campdonnell_camp_dinner
         else
-            goto,~$$_w
+            super
         end
     end
     // LGO: Direction (Generic)
-    group $$_wd
+    function $$_wd
         if 162
-            goto,$$_w
+            call,$$_w
         else
-            goto,~$$_wd
+            super
         end
     end
     // T: Soldier
-    group _t_soldier
+    function _t_soldier
         if !162
             print,15_ccs_t0
             // SW: 162 - Asked soldier about the situation
@@ -654,31 +654,31 @@ scene s04_campdonnell_camp_shooting
     end
     // Actions
     action
-        talk soldier,talk to soldier,talk with soldier|goto,_t_soldier
-        converse soldier,converse to soldier,converse with soldier|goto,_t_soldier
-        chat soldier,chat to soldier,chat with soldier|goto,_t_soldier
-        speak soldier,speak to soldier,speak with soldier|goto,_t_soldier
-        talk troop,talk to troop,talk with troop|goto,_t_soldier
-        converse troop,converse to troop,converse with troop|goto,_t_soldier
-        chat troop,chat to troop,chat with troop|goto,_t_soldier
-        speak troop,speak to troop,speak with troop|goto,_t_soldier
-        dinner,eat dinner,gather for dinner,gather,gather up,gather up for dinner|goto,$_w
+        talk soldier,talk to soldier,talk with soldier|call,_t_soldier
+        converse soldier,converse to soldier,converse with soldier|call,_t_soldier
+        chat soldier,chat to soldier,chat with soldier|call,_t_soldier
+        speak soldier,speak to soldier,speak with soldier|call,_t_soldier
+        talk troop,talk to troop,talk with troop|call,_t_soldier
+        converse troop,converse to troop,converse with troop|call,_t_soldier
+        chat troop,chat to troop,chat with troop|call,_t_soldier
+        speak troop,speak to troop,speak with troop|call,_t_soldier
+        dinner,eat dinner,gather for dinner,gather,gather up,gather up for dinner|call,$_w
     end
 end
 
 // Camp O'Donnell: Part 07 (Dinner)
 scene s04_campdonnell_camp_dinner
     //===============
-    // @DEF duplicated groups from 2_egs.gs
+    // @DEF duplicated functions from 2_egs.gs
     // Interaction: swearing
-    group $$_swear
-        goto,event_41a
+    function $$_swear
+        call,event_41a
     end
-    group $_swear
-        if !0,!2
-            goto,$$_swear
+    function $_swear
+        if !reservedGCGDisabled && !interactionsDisabled
+            call,$$_swear
         else
-            goto,$_f
+            call,$_f
         end
     end
     // @END
@@ -710,12 +710,12 @@ scene s04_campdonnell_camp_dinner
         16_ccd_a1|You already ate your chicken and you don't want any more food.
     end
     // LGO: Entry
-    group $
+    function $
         set,5,true
         print,16_ccd_l0
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         if !167
             print,16_ccd_l0
         else
@@ -723,7 +723,7 @@ scene s04_campdonnell_camp_dinner
         end
     end
     // LGO: Talk
-    group $$_t
+    function $$_t
         if !165
             print,16_ccd_t0
         elsif !166
@@ -759,15 +759,15 @@ scene s04_campdonnell_camp_dinner
         end
     end
     // LGO: Affirmative
-    group $$_aff
-        goto,event_41a
+    function $$_aff
+        call,event_41a
     end
     // LGO: Negative
-    group $$_neg
-        goto,event_41b
+    function $$_neg
+        call,event_41b
     end
     // 40: Eat food
-    group event_40
+    function event_40
         if !165
             printc,16_ccd_a0,2n,16_ccd_t1,1n
             inv,rm,chicken
@@ -779,45 +779,45 @@ scene s04_campdonnell_camp_dinner
         end
     end
     // 41: Swore to Stanley's challenge [D]
-    group event_41a
-        if 167,!168
+    function event_41a
+        if 167 && !168
             printc,16_ccd_d0,2n,16_ccd_d1,1n
-            goto,$_go
+            call,$_go
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 42: No to swearing
-    group event_41b
-        if 167,!168
+    function event_41b
+        if 167 && !168
             print,16_ccd_t4
             // SW: 168 - Declined Stanley's challenge
             set,168,true
             points,add,2
         else
-            goto,$_f
+            call,$_f
         end
     end
     // Actions
     action
-        eat,eat chicken,eat dinner,eat now,eat food|goto,event_40
+        eat,eat chicken,eat dinner,eat now,eat food|call,event_40
         // Fallback for absence of easter eggs game script
-        accept the challenge,accept challenge|goto,event_41a
-        good evening sh*t face,good evening sh*t|goto,event_41a
-        try shouting,shouting,shout,try swearing,swear,swear now,sh*t face,s**t face|goto,event_41a
-        no to swearing,do not try,don't try,I won't,I would not,I will not|goto,event_41b
-        talk soldier,talk to soldier,talk with soldier|goto,$_t
-        converse soldier,converse to soldier,converse with soldier|goto,$_t
-        chat soldier,chat to soldier,chat with soldier|goto,$_t
-        speak soldier,speak to soldier,speak with soldier|goto,$_t
-        talk troop,talk to troop,talk with troop|goto,$_t
-        converse troop,converse to troop,converse with troop|goto,$_t
-        chat troop,chat to troop,chat with troop|goto,$_t
-        speak troop,speak to troop,speak with troop|goto,$_t
-        talk stanley,talk to stanley,talk with stanley|goto,$_t
-        converse stanley,converse to stanley,converse with stanley|goto,$_t
-        chat stanley,chat to stanley,chat with stanley|goto,$_t
-        speak stanley,speak to stanley,speak with stanley|goto,$_t
+        accept the challenge,accept challenge|call,event_41a
+        good evening sh*t face,good evening sh*t|call,event_41a
+        try shouting,shouting,shout,try swearing,swear,swear now,sh*t face,s**t face|call,event_41a
+        no to swearing,do not try,don't try,I won't,I would not,I will not|call,event_41b
+        talk soldier,talk to soldier,talk with soldier|call,$_t
+        converse soldier,converse to soldier,converse with soldier|call,$_t
+        chat soldier,chat to soldier,chat with soldier|call,$_t
+        speak soldier,speak to soldier,speak with soldier|call,$_t
+        talk troop,talk to troop,talk with troop|call,$_t
+        converse troop,converse to troop,converse with troop|call,$_t
+        chat troop,chat to troop,chat with troop|call,$_t
+        speak troop,speak to troop,speak with troop|call,$_t
+        talk stanley,talk to stanley,talk with stanley|call,$_t
+        converse stanley,converse to stanley,converse with stanley|call,$_t
+        chat stanley,chat to stanley,chat with stanley|call,$_t
+        speak stanley,speak to stanley,speak with stanley|call,$_t
     end
 end
 
@@ -837,11 +837,11 @@ scene s04_campdonnell_camp_lookaround
         17_ccl_a1|You tried to stay awake but fell asleep due to exhaustion.%n%nYou never woke up again.
     end
     // LGO: Entry
-    group $
+    function $
         print,17_ccl_10
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         if !172
             print,17_ccl_l1
             // SW: 172 - Look around sequence #1
@@ -862,28 +862,28 @@ scene s04_campdonnell_camp_lookaround
         end
     end
     // 43: Sleep
-    group event_43
-        if 172,173,174
+    function event_43
+        if 172 && 173 && 174
             print,17_ccl_a0
             points,add,2
             scene,s04_campdonnell_liberation
         else
-            goto,$_msp
+            call,$_msp
         end
     end
     // 44: Fight to stay awake [D]
-    group event_44
-        if 172,173,174
+    function event_44
+        if 172 && 173 && 174
             print,17_ccl_a1
-            goto,$_go
+            call,$_go
         else
-            goto,$_msp
+            call,$_msp
         end
     end
     // Actions
     action
-        sleep,sleep now,take a rest,take rest,rest|goto,event_43
-        fight to stay awake,fight stay awake,stay awake,fight awake,awake|goto,event_44
+        sleep,sleep now,take a rest,take rest,rest|call,event_43
+        fight to stay awake,fight stay awake,stay awake,fight awake,awake|call,event_44
     end
 end
 
@@ -897,17 +897,17 @@ scene s04_campdonnell_liberation
         18_fre_f2|It seems that the war outside the Philippines has shifted unfavorably to the%nJapanese. After months and months of suffering and death, Camp O’Donnell and the%nPOWs it held was liberated from the Japanese.
     end
     // LGO: Entry
-    group $
+    function $
         print,18_fre_f0
         // Disable all interactions
-        set,2,true
+        set,interactionsDisabled,true
     end
     // LGO: Fallback
-    group $_f
-        goto,event_45
+    function $_f
+        call,event_45
     end
     // 45: Narration of the End of War
-    group event_45
+    function event_45
         if !175
             print,18_fre_f1
             // SW: 175 - Narration sequence #1
@@ -918,11 +918,11 @@ scene s04_campdonnell_liberation
             // SW: 176 - Narration sequence #2
             set,176,true
             // Enable all interactions
-            set,2,false
+            set,interactionsDisabled,false
             // END THE GAME!
             scene,s05_end
         else
-            goto,$_f
+            call,$_f
         end
     end
 end

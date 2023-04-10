@@ -20,7 +20,7 @@ scene s05_end
         99_end_a1|You may type `quit` to quit the game.
     end
     // LGO: Entry
-    group $
+    function $
         set,0,true
         printc,99_end_l0,2n
         inv,list

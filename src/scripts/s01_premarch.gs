@@ -29,101 +29,103 @@ scene s01_premarch_exposition
         01_pme_t3|"Majority of the soldiers here will be evacuated by ship to Bataan %nPeninsula to stop those sons of a gun from invading."
     end
     // LGO: Entry
-    group $
-        set,5,true
+    function $
+        set,useAlternateTalkSequence,true
         print,01_pme_l0
     end
     // LGO: Fallback
-    group $_f
+    function $_f
         print,01_pme_t1
     end
     // LGO: Talk
-    group $$_t
-        if !10,!11,!12
+    function $$_t
+        if !10 && !11 && !12
             printc,01_pme_t2,01_pme_t0,1n
-        elsif 10,!11,!12
+        elsif 10 && !11 && !12
             printc,01_pme_t3,01_pme_t0,1n
         else
-            goto,~$$_t
+            super
         end
     end
     // LGO: Look
-    group $$_l
-        if !10,!11,!12
-            print,01_pme_l0
-        elsif 10,!11,!12
-            print,01_pme_l1
-        elsif 10,11,!12
-            print,01_pme_l2
-        elsif 10,11,12
-            print,01_pme_l3
+    function $$_l
+        if 10
+            if 11
+                if 12
+                    print,01_pme_l3
+                else
+                    print,01_pme_l2
+                end
+            else
+                print,01_pme_l1
+            end
         else
-            goto,~$$_l
+            print,01_pme_l0
         end
     end
     // 1: Packing up of bags
-    group event_1
+    function event_1
         if !10
             print,01_pme_t3
             set,10,true
             points,add,5
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 2: Running away from the Japanese
-    group event_2
-        if 10,!11
+    function event_2
+        if 10 && !11
             print,01_pme_l2
             set,11,true
-            set,5,false
+            set,useAlternateTalkSequence,false
             points,add,5
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 3: Jump over a rock [P]
-    group event_3
-        if 10,11,!12
+    function event_3
+        if 10 && 11 && !12
             print,01_pme_l3
             set,12,true
             points,add,5
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 4a: Jump over a rock (YES)
-    group event_4a
-        if 10,11,12,!13
+    function event_4a
+        if 10 && 11 && 12 && !13
             set,13,true
             points,add,5
             scene,s01_premarch_ticket
         else
-            goto,$_f
+            call,$_f
         end
     end
-    group $$_aff
-        goto,event_4a
+    function $$_aff
+        call,event_4a
     end
     // 4b: Jump over a rock (NO) [D]
-    group event_4b
-        if 10,11,12,!13
+    function event_4b
+        if 10 && 11 && 12 && !13
             print,01_pme_d1
-            goto,$_go
+            call,$_go
             quit
         else
-            goto,$_f
+            call,$_f
         end
     end
-    group $$_neg
-        goto,event_4b
+    function $$_neg
+        call,event_4b
     end
     // Actions
     action
-        pack,get,pack up,take up,get up,move up|goto,event_1
-        board ship,board to ship,board the ship,enter ship,enter the ship,head to ship,go to ship,goto ship,head ship,walk ship,to ship,go ship,ship,run ship,run to ship|goto,event_2
-        run,runaway,run away,run far,run faraway,run north,run south,run east,run west|goto,event_3
-        talk to miller,talk miller,converse miller,converse with miller,chat miller,chat with miller,speak to miller,speak with miller|goto,$_t
+        pack,get,pack up,take up,get up,move up|call,event_1
+        board ship,board to ship,board the ship,enter ship,enter the ship,head to ship,go to ship,goto ship,head ship,walk ship,to ship,go ship,ship,run ship,run to ship|call,event_2
+        run,runaway,run away,run far,run faraway,run north,run south,run east,run west|call,event_3
+        talk to miller,talk miller,converse miller,converse with miller,chat miller,chat with miller,speak to miller,speak with miller|call,$_t
     end
 end
 
@@ -158,12 +160,12 @@ scene s01_premarch_ticket
         ticket|The second of two items that one needs before surrendering.
     end
     // LGO: Entry
-    group $
-        set,5,true
+    function $
+        set,useAlternateTalkSequence,true
         print,02_pmt_l0
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         if !14
             print,02_pmt_l0
         else
@@ -171,49 +173,49 @@ scene s01_premarch_ticket
         end
     end
     // LGO: Talk
-    group $$_t
-        goto,event_6a
+    function $$_t
+        call,event_6a
     end
     // LGO: Affirmative
-    group $$_aff
-        goto,event_7a
+    function $$_aff
+        call,event_7a
     end
     // LGO: Negative
-    group $$_neg
-        goto,event_7b
+    function $$_neg
+        call,event_7b
     end
     // 5a: Choose hiding spot (unsafe) [D]
-    group event_5a
+    function event_5a
         print,02_pmt_d0
-        goto,$_go
+        call,$_go
     end
     // 5b: Choose hiding spot (safe)
-    group event_5b
+    function event_5b
         if !14
             print,02_pmt_a0
             set,14,true
             points,add,5
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 6a: Conversation with General
-    group event_6a
+    function event_6a
         // CO: Bad news
-        if 14,!15
+        if 14 && !15
             print,02_pmt_t0
             set,15,true
             points,add,2
         // CO: Surrender tickets
-        elsif 14,15,!16
+        elsif 14 && 15 && !16
             printc,02_pmt_t1,2n
             inv,add,white flag
             inv,list
-            goto,tip_01
+            call,tip_01
             set,16,true
             points,add,2
         // CO: Sketchy system [P]
-        elsif 14,15,16,!17
+        elsif 14 && 15 && 16 && !17
             print,02_pmt_t2
             // We keep switch no. 17 as-is because this is the last message
             if !18
@@ -221,13 +223,13 @@ scene s01_premarch_ticket
                 set,18,true
             end
         else
-            goto,~$$_t
+            callglob,$$_t
         end
     end
     // 6b: Take ticket from the General
-    group event_6b
-        if 16,!18
-            if_inv !ticket
+    function event_6b
+        if 16 && !18
+            if !i:ticket
                 inv,add,ticket
                 print,02_pmt_o0
                 points,add,5
@@ -235,19 +237,19 @@ scene s01_premarch_ticket
                 print,02_pmt_o1
             end
         elsif 18
-            if_inv ticket
+            if i:ticket
                 print,02_pmt_o1
             else
                 print,02_pmt_o2
             end
         else
-            goto,$_o
+            call,$_o
         end
     end
     // 7a: Go to Japanese HQ (YES) [D]
-    group event_7a
+    function event_7a
         if 18
-            if_inv ticket
+            if i:ticket
                 printc,02_pmt_t3,02_pmt_t4,2n
                 inv,rm,ticket
                 inv,rm,white flag
@@ -255,35 +257,35 @@ scene s01_premarch_ticket
                 scene,s01_premarch_hq
             else
                 printc,02_pmt_t3,02_pmt_d1,2n,@HRED,02_pmt_d2,@_,1n
-                goto,$_go
+                call,$_go
             end
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 7b: Go to Japanese HQ (NO)
-    group event_7b
+    function event_7b
         if 18
             print,02_pmt_t5
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 7c: Go to Japanese HQ (YES-through walk)
-    group event_7c
+    function event_7c
         if 18
-            goto,event_7a
+            call,event_7a
         else
-            goto,$_wd
+            call,$_wd
         end
     end
     // Actions
     action
-        under a tree,under tree,tree,tree under,inside the house,inside house,inside,house,the house|goto,event_5a
-        in the trench,trench,walk to trench,walk trench,in trench,the trench,to trench,run trench,run to trench,walk to the trench,run to the trench,run the trench,walk the trench|goto,event_5b
-        talk general,talk to general,converse general,converse with general,chat to general,chat with general,chat general,speak to general,speak with general,speak general,interact with general,interact to general|goto,event_6a
-        ticket,take ticket,pick ticket,get ticket,snatch ticket,grasp ticket,pull ticket,reach ticket|goto,event_6b
-        walk camp,walk to camp,run camp,run to camp,go camp, go to camp|goto,event_7c
+        under a tree,under tree,tree,tree under,inside the house,inside house,inside,house,the house|call,event_5a
+        in the trench,trench,walk to trench,walk trench,in trench,the trench,to trench,run trench,run to trench,walk to the trench,run to the trench,run the trench,walk the trench|call,event_5b
+        talk general,talk to general,converse general,converse with general,chat to general,chat with general,chat general,speak to general,speak with general,speak general,interact with general,interact to general|call,event_6a
+        ticket,take ticket,pick ticket,get ticket,snatch ticket,grasp ticket,pull ticket,reach ticket|call,event_6b
+        walk camp,walk to camp,run camp,run to camp,go camp, go to camp|call,event_7c
     end
 end
 
@@ -317,111 +319,111 @@ scene s01_premarch_hq
         03_pmh_a0|You sat near one of the four corners of the cell, confused and contemplating as%nto why these things are happening to you... A few minutes later and for some%nreason, you were fast asleep.
     end
     // LGO: Entry
-    group $
-        set,5,true
+    function $
+        set,useAlternateTalkSequence,true
         print,03_pmh_l0
     end
     // LGO: Fallback
-    group $_f
+    function $_f
         // X01: Entrance
         if !19
             print,03_pmh_l1
         else
-            goto,~$_f
+            super
         end
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         // X01: Entrance
         if !19
             printc,03_pmh_l0,2n,03_pmh_l2,1n
         // X02: Prison Cell
-        elsif 19,!20
+        elsif 19 && !20
             printc,03_pmh_l3,03_pmh_w3,1n
         else
-            goto,~$$_l
+            super
         end
     end
     // LGO: Talk
-    group $$_t
+    function $$_t
         // X01: Entrance
         if !19
             print,03_pmh_l1
         // X02: Prison Cell (soldier talk)
-        elsif 19,!20
+        elsif 19 && !20
             printr,03_pmh_t2,03_pmh_t3,03_pmh_t4,03_pmh_t5
         else
-            goto,~$$_t
+            super
         end
     end
     // LGO: Direction (Generic)
-    group $$_wd
+    function $$_wd
         if 19,!20
             print,03_pmh_t0
         else
-            goto,~$$_wd
+            super
         end
     end
     // LGO: Direction (North)
-    group $$_wd_n
+    function $$_wd_n
         if !19
             set,19,true
             points,add,5
             printc,03_pmh_w2,2n,03_pmh_w0,2n,03_pmh_w1,03_pmh_w3,2n,03_pmh_t1,1n
         else
-            goto,$$_wd
+            call,$$_wd
         end
     end
     // LGO: Direction (East) [D]
-    group $$_wd_e
+    function $$_wd_e
         if !19
             printc,03_pmh_w0,2n,03_pmh_w1,03_pmh_d0,2n
             printc,@HRED,03_pmh_d1,@_,1n
-            goto,$_go
+            call,$_go
         else
-            goto,$$_wd
+            call,$$_wd
         end
     end
     // LGO: Direction (West) [D]
-    group $$_wd_w
+    function $$_wd_w
         if !19
-            goto,$$_wd_e
+            call,$$_wd_e
         else
-            goto,$$_wd
+            call,$$_wd
         end
     end
     // 8: Sleep
-    group event_8
-        if 19,!20
+    function event_8
+        if 19 && !20
             print,03_pmh_a0
             set,20,true
             points,add,5
             scene,s01_premarch_final
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 9: Shout/Plead for Help [D]
-    group event_9
-        if 19,!20,!21
+    function event_9
+        if 19 && !20 && !21
             print,03_pmh_t6
             set,21,true
-        elsif 19,!20,21
+        elsif 19 && !20 && 21
             printc,03_pmh_t7,2n
             printc,@HRED,03_pmh_d1,@_,1n
-            goto,$_go
+            call,$_go
         else
-            goto,$_f
+            call,$_f
         end
     end
     // Actions
     action
-        talk soldier,talk to soldier,talk with soldier|goto,$_t
-        converse soldier,converse to soldier,converse with soldier|goto,$_t
-        chat soldier,chat to soldier,chat with soldier|goto,$_t
-        speak soldier,speak to soldier,speak with soldier|goto,$_t
-        sleep,tulog,go to sleep,lie down,sleep now,sleep down,sleep floor,sleep on floor,sleep on the floor,just sleep|goto,event_8
-        shout,shout loud,shout help,plead for help,plead,send help,get help|goto,event_9
+        talk soldier,talk to soldier,talk with soldier|call,$_t
+        converse soldier,converse to soldier,converse with soldier|call,$_t
+        chat soldier,chat to soldier,chat with soldier|call,$_t
+        speak soldier,speak to soldier,speak with soldier|call,$_t
+        sleep,tulog,go to sleep,lie down,sleep now,sleep down,sleep floor,sleep on floor,sleep on the floor,just sleep|call,event_8
+        shout,shout loud,shout help,plead for help,plead,send help,get help|call,event_9
     end
 end
 
@@ -443,84 +445,84 @@ scene s01_premarch_final
         04_pmf_t4|Lieutenant General Homma Masaharu fired a gun so the troops will stop talking and start walking. "Rokudenashi, isoide!" the General shouted at the troops.
     end
     // LGO: Entry
-    group $
-        set,5,true
+    function $
+        set,useAlternateTalkSequence,true
         print,04_pmf_l0
     end
     // LGO: Talk
-    group $$_t
+    function $$_t
         // X02: Talk with Antonio
-        if 22,!24
+        if 22 && !24
             print,04_pmf_t0
             if !23
                 set,23,true
                 points,add,2
             end
-        elsif 22,23,24
+        elsif 22 && 23 && 24
             print,04_pmf_t4
         else
-            goto,~$$_t
+            super
         end
     end
     // LGO: Walk
-    group $$_wd_e
-        if 22,23,24
-            goto,event_12
+    function $$_wd_e
+        if 22 && 23 && 24
+            call,event_12
         else
-            goto,~$$_wd
+            super
         end
     end
     // LGO: Look
-    group $$_l
+    function $$_l
         // X01: Initial walk prompt
         if !22
             print,04_pmf_l0
         // X02: Talk with Antonio
-        elsif 22,!24
+        elsif 22 && !24
             printc,04_pmf_l1,04_pmf_l2,1n
-        elsif 22,24
+        elsif 22 && 24
             print,04_pmf_l1
         else
-            goto,~$$_l
+            super
         end
     end
     // LGO: Affirmative
-    group $$_aff
+    function $$_aff
         // X01: Initial walk prompt
         if !22
-            goto,event_10a
+            call,event_10a
         // X02: Talk with Antonio
-        elsif 22,23,!24
-            goto,event_11a
+        elsif 22 && 23 && !24
+            call,event_11a
         else
-            goto,$_f
+            call,$_f
         end
     end
     // LGO: Negative
-    group $$_neg
+    function $$_neg
         // X01: Initial walk prompt
         if !22
-            goto,event_10b
+            call,event_10b
         // X02: Talk with Antonio
-        elsif 22,23,!24
-            goto,event_11b
+        elsif 22 && 23 && !24
+            call,event_11b
         else
-            goto,$_f
+            call,$_f
         end
     end
     // 10a: Yes to the march
-    group event_10a
+    function event_10a
         printc,04_pmf_l1,04_pmf_l2,1n
         set,22,true
         points,add,5
     end
     // 10b: No to the march [D]
-    group event_10b
+    function event_10b
         printc,@HRED,04_pmf_d0,@_,1n
-        goto,$_go
+        call,$_go
     end
     // 11a: "Yes to friends"
-    group event_11a
+    function event_11a
         set,24,true
         // SW: 25 - Friends with Antonio
         set,25,true
@@ -528,21 +530,21 @@ scene s01_premarch_final
         print,04_pmf_t3
     end
     // 11b: "No to friends"
-    group event_11b
+    function event_11b
         set,24,true
         points,add,1
         printc,04_pmf_t1,2n,04_pmf_t2,1n
     end
     // 12: Switch to Cabcaben
-    group event_12
+    function event_12
         points,add,5
         scene,s02_cabcaben_arrival
     end
     // Actions
     action
-        talk antonio,talk to antonio,talk with antonio|goto,$_t
-        converse antonio,converse to antonio,converse with antonio|goto,$_t
-        chat antonio,chat to antonio,chat with antonio|goto,$_t
-        speak antonio,speak to antonio,speak with antonio|goto,$_t
+        talk antonio,talk to antonio,talk with antonio|call,$_t
+        converse antonio,converse to antonio,converse with antonio|call,$_t
+        chat antonio,chat to antonio,chat with antonio|call,$_t
+        speak antonio,speak to antonio,speak with antonio|call,$_t
     end
 end

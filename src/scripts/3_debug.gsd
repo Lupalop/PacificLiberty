@@ -7,8 +7,8 @@
 */
 
 // Common: Game over
-group $_go
-    if !0
+function $_go
+    if !reservedGCGDisabled
         printc,1n,@BRED,go_0,@_,2n
         points,list
         printc,1n,@BRED,@UE
@@ -17,38 +17,38 @@ group $_go
         //quit
         printc,2n,<quit overridden>,1n
     else
-        goto,$_f
+        call,$_f
     end
 end
 
 // Scene shortcuts
 scene 0
-    group $
+    function $
         scene,s00_prompt
     end
 end
 scene 1
-    group $
+    function $
         scene,s01_premarch_exposition
     end
 end
 scene 2
-    group $
+    function $
         scene,s02_cabcaben_arrival
     end
 end
 scene 3
-    group $
+    function $
         scene,s03_sanfernando_arrival
     end
 end
 scene 4
-    group $
+    function $
         scene,s04_campdonnell_arrival
     end
 end
 scene 5
-    group $
+    function $
         scene,s05_end
     end
 end
