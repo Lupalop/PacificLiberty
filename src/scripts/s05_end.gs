@@ -1,10 +1,11 @@
 /* @FILE: s05_end.gs
-   © Lupalop Games - All Rights Reserved
-   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
-   To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
-   Contributor(s):
-     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
-*/
+ * © Lupalop Games - All Rights Reserved
+ * This work is licensed under the CC BY-NC-ND 4.0 license.
+ * To view a copy of this license, visit
+ * https://creativecommons.org/licenses/by-nc-nd/4.0/
+ * Contributor(s):
+ *   Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
+ */
 
 /* @NOTES:
    Allocated switches: 200-299
