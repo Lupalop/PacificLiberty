@@ -1,7 +1,7 @@
 /* @FILE: s04_campdonnell.gs
    © Lupalop Games - All Rights Reserved
-   Unauthorized copying of this file, via any medium is strictly prohibited
-   Proprietary and confidential
+   This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
+   To view a copy of this license, visit https://creativecommons.org/licenses/by-nc-nd/4.0/
    Contributor(s):
      Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
      Rachel Lauren Manlapig <rcmanlapig@student.apc.edu.ph>
