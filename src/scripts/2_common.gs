@@ -1,9 +1,9 @@
 /* @FILE: 2_common.gs
-   © Lupalop Games - All Rights Reserved
-   Unauthorized copying of this file, via any medium is strictly prohibited
-   Proprietary and confidential
+   This Source Code Form is subject to the terms of the Mozilla Public
+   License, v. 2.0. If a copy of the MPL was not distributed with this
+   file, You can obtain one at http://mozilla.org/MPL/2.0/.
    Contributor(s):
-    Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
+     Francis Dominic Fajardo <fofajardo@student.apc.edu.ph>
 */
 
 //------------------------------------------------------------------------------
